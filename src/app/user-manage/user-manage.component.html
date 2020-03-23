@@ -1,0 +1,75 @@
+<section class="user_manage_section">
+        <!-- <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner> -->
+        
+    <section class="left_section">
+        <div class="menu_container">
+            <div class="user_logo">
+                <img src="../../assets/img/users/{{userModel.photo}}">
+                <h3>{{userModel.name}}</h3>
+            </div>
+            <ul>
+                <li routerLinkActive="active-link">
+                    <a [routerLink]="['./my-profile']" data-text="Profile">Profile</a>
+                </li>
+                <li  routerLinkActive="active-link" *ngIf="isAdmin">
+                    <a [routerLink]="['./users']" data-text="Users">Users</a>
+                </li>
+                <li routerLinkActive="active-link" *ngIf="isAdmin">
+                    <a [routerLink]="['./tours']" data-text="Tours">Tours</a>
+                </li>
+                <li routerLinkActive="active-link" *ngIf="isAdmin">
+                    <a [routerLink]="['./bookings']" data-text="Bookings">Bookings</a>
+                </li>
+                <li routerLinkActive="active-link">
+                    <a [routerLink]="['./my-bookings']" data-text="My Bookings">My Bookings</a>
+                </li>
+                <li routerLinkActive="active-link">
+                    <a [routerLink]="['../tourDetails']" data-text="Back To Tours">Back To Tours</a>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="right_section">
+
+            <router-outlet></router-outlet>
+
+
+
+        <!-- <div class="user_container">
+            <div class="user_header">
+              
+                <div class="user_intro_container">
+                    <div class="user_intro">
+                        <h2>Milan Raval</h2>
+                        <h3>milanraval008@gmail.com</h3>
+                    </div>
+                </div>
+                <div class="user_image">
+                    <img src="../../assets/img/tours/tour-1-1.jpg">
+                </div>
+
+            </div>
+            <div class="user_profile_container">
+                <div class="user_profile">
+                    <div class="input_box">
+                        <span class="background"></span>
+                        <input type="text" id="" required>
+                        <span class="float_label">Enter Name</span>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" id="" required>
+                        <span class="float_label">Enter Name</span>
+                        <span class="background"></span>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" id="" required>
+                        <span class="float_label">Enter Name</span>
+                        <span class="background"></span>
+                    </div>
+                </div>
+            </div>
+        </div> -->
+
+    </section>
+</section>

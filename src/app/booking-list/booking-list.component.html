@@ -1,0 +1,39 @@
+<section class="booking_container">
+    <div class="booking_card_container">
+        <div class="no_bookings" *ngIf="!bookings.length > 0">
+            No Bookings
+        </div>
+        <div  *ngIf="bookings.length > 0">  
+                <div class="booking_card" *ngFor="let booking of bookings">
+                        <div class="ribbon_container">
+                            <h1 class="ribbon">
+                                <strong class="ribbon-content">{{booking.tour[0].name}}</strong>
+                            </h1>
+                        </div>
+                        <div class="booking_details">
+                            <div class="title_box">
+                                <span class="title">Tour Name :</span>
+                                <span class="title_value">{{booking.tour[0].name}}</span>
+                            </div>
+                            <div class="title_box">
+                                <span class="title">Price :</span>
+                                <span class="title_value">{{booking.price}}</span>
+                            </div>
+                            <div class="title_box">
+                                <span class="title">Status :</span>
+                                <span class="title_value">{{booking.bookingSatus}}</span>
+                            </div>
+                            <div class="title_box">
+                                <span class="title">Booked On :</span>
+                                <span class="title_value">{{booking.createdAt | date:'dd MMM yyyy'}}</span>
+                            </div>
+                            <div class="review_box">
+                                <button class="review_button" (click)="onWriteReview(booking.tour[0]._id)">Write a Review</button>
+                            </div>
+                        </div>
+                    </div>
+        </div>
+      
+    </div>
+
+</section>

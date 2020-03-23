@@ -1,0 +1,68 @@
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+
+
+<section class="user_profile_section">
+    <div class="header_section">
+        <div class="img_section">
+            <img src="../../assets/img/users/{{userModel.photo}}">
+            <div class="upload_photo_div" *ngIf="isSelfUser">
+                <label for="file-input">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </label>
+                <input type="file" id="file-input" name="image" ng2FileSelect class="inputfile" [uploader]="uploader" accept="image/x-png,image/gif,image/jpeg" />
+            </div>
+        </div>
+        <div class="header_content">
+            <h1>{{userModel.name}}</h1>
+            <h2>{{userModel.email}}</h2>
+        </div>
+    </div>
+    <div class="profile_section">
+        <div class="profile_card">
+            <div class="card_header">
+                <span class="card_header_title">Manage Profile</span>
+                <button (click)="updateContactInfo()">save</button>
+            </div>
+            <div class="card_content">
+                <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile">
+                    <div class="input_box">
+                        <input type="text" required [readonly]="!isSelfUser" name="name" [(ngModel)]="userModel.name">
+                        <span class="float_label">User Name</span>
+                    </div>
+                    <div class="input_box">
+                        <input type="email" required name="email" [readonly]="!isSelfUser" [(ngModel)]="userModel.email">
+                        <span class="float_label">Email</span>
+                    </div>
+                    <div class="input_box">
+                        <input type="text" [readonly]="isSelfUser" required name="role" [(ngModel)]="userModel.role">
+                        <span class="float_label">User Role</span>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+        <div class="profile_card" *ngIf="isSelfUser">
+                <div class="card_header">
+                    <span class="card_header_title">Manage Password</span>
+                    <button (click)="updatePassword()">save</button>
+                </div>
+                <div class="card_content">
+                    <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile">
+                        <div class="input_box">
+                            <input type="password" required name="password" [(ngModel)]="passwordModel.password">
+                            <span class="float_label">Current Password</span>
+                        </div>
+                        <div class="input_box">
+                            <input type="password" required name="updatedPassword" [(ngModel)]="passwordModel.updatedPassword">
+                            <span class="float_label">New Password</span>
+                        </div>
+                        <div class="input_box">
+                            <input type="password" required name="updatedPasswordConfirm" [(ngModel)]="passwordModel.updatedPasswordConfirm">
+                            <span class="float_label">Confirm New Password</span>
+                        </div>
+                    </form>
+                </div>
+    
+            </div>
+    </div>
+</section>

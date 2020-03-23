@@ -1,0 +1,113 @@
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+
+<section class="edit_container">
+    <div class="tour_header" *ngIf="isEditMode">
+        <div class="tour_background">
+        </div>
+        <div class="tour_intro_container">
+
+            <div class="tour_intro">
+                <h2>{{tourModel.name}}</h2>
+                <h3>{{tourModel.location}}</h3>
+            </div>
+        </div>
+        <div class="tour_image">
+            <div class="image_container" >
+                    <img src="../../assets/img/tours/{{tourModel.imageCover}}">
+                    <div class="upload_photo_div" >  
+                        <label for="file-input">
+                            <i class="fa fa-pencil" aria-hidden="true"></i>
+                        </label>
+                        <input type="file" id="file-input" name="image" ng2FileSelect class="inputfile" [uploader]="uploader" accept="image/x-png,image/gif,image/jpeg" />
+                    </div>
+            </div>
+        </div>
+
+    </div>
+    <div class="tour_profile_container">
+        <div class="tour_profile">
+            <form #tourForm="ngForm" (ngSubmit)="onSubmit()" novalidate class="tour_profile">
+            <div class="input_box">
+                <input type="text"  required name="name" [(ngModel)]="tourModel.name">
+                <span class="float_label">Tour Name</span>
+            </div>
+            <div class="input_box">
+                <input type="number"  required name="duration" [(ngModel)]="tourModel.duration">
+                <span class="float_label">Duration</span>
+            </div>
+            <div class="input_box">
+                <input type="number"  required name="maxGroupSize" [(ngModel)]="tourModel.maxGroupSize">
+                <span class="float_label">Max Group Size</span>
+            </div>
+            <div class="input_box">
+                <select (blur)="validateDifficultyLevel(difficultyLevel.value)" (change)="validateDifficultyLevel(difficultyLevel.value)" required #difficultyLevel="ngModel"
+                    [class.is-invalid]="difficultyLevelhasError && difficultyLevel.touched" name="difficultyLevel" [(ngModel)]="tourModel.difficulty">
+                    <option [selected]="tourModel.difficulty == false" value="default">Choose Difficluty Level</option>
+                    <option *ngFor="let difficultyLevel of difficultyLevels" [selected]="tourModel.difficulty == difficultyLevel" [value]="difficultyLevel">{{ difficultyLevel }}</option>
+                </select>
+                <span class="float_label" class="select_label">Difficulty Level</span>
+                
+            </div>
+            <div class="input_box">
+                <input type="number"  required name="price" [(ngModel)]="tourModel.price">
+                <span class="float_label">Price</span>
+            </div>
+            <div class="input_box text_area">
+                <input type="text"  required name="summary" [(ngModel)]="tourModel.summary">
+                <span class="float_label">Summary</span>
+            </div>
+            <div class="input_box" *ngIf="isEditMode">
+                <input type="file" multiple name="image" ng2FileSelect class="inputfile" [uploader]="imagesUploader" accept="image/x-png,image/gif,image/jpeg" />
+                <span class="float_label">Images</span>
+            </div>
+            <div class="input_box">
+                <input type="number"  name="priceDiscount" [class.is-invalid]="discountHasError && discount.touched" (change)="validateDiscount(discount.value)" #discount="ngModel" [(ngModel)]="tourModel.priceDiscount">
+                <span class="float_label">Price Discount</span>
+            </div>
+            <div class="input_box text_area">
+                    <input type="text"  name="description" [(ngModel)]="tourModel.description">
+                    <span class="float_label">Description</span>
+            </div>
+            <div class="input_box text_area grid">
+                    <div class="grid_header">
+                            <span class="float_label grid_label">Locations</span>
+                            <button  type="button" (click)="removeRow()" class="btn">Remove Row</button>
+                            <button  type="button" (click)="AddRow()" class="btn">Add Row</button>
+                    </div>
+                    <ag-grid-angular #locationGrid
+                    class="ag-theme-balham"
+                    [rowData]="locationRowData"
+                    [columnDefs]="locationColumnDefs"  [animateRows]="true"
+                    [rowSelection]="rowSelection"
+                    >
+                </ag-grid-angular>
+            </div>
+            <div class="input_box text_area grid">
+                    <div class="grid_header">
+                            <span class="float_label grid_label">Guides</span>
+                    </div>
+                    <ag-grid-angular #guideGrid
+                    class="ag-theme-balham"
+                    [rowData]="guideRowData"
+                    [columnDefs]="guideColumnDefs"  [animateRows]="true"
+                    [rowSelection]="rowSelection" (gridReady)="onGuideGridReady($event)"
+                    >
+                </ag-grid-angular>
+            </div>
+            <div class="input_box text_area grid">
+                    <div class="grid_header">
+                            <span class="float_label grid_label">Start Location</span>
+                    </div>
+                    <ag-grid-angular #startlocationGrid
+                    class="ag-theme-balham start_location"
+                    [rowData]="startLocationRowData"
+                    [columnDefs]="startLocationColumnDefs"  [animateRows]="true"
+                    [rowSelection]="rowSelection" 
+                    >
+                </ag-grid-angular>
+            </div>
+            <button class="btn" type="submit">Submit form</button>
+            </form>
+        </div>
+    </div>
+</section>

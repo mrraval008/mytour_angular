@@ -1,0 +1,19 @@
+<section class="search_section">
+    <div class="search_container">
+        <div class="search_box">
+            <i class="fa fa-search" aria-hidden="true"></i>
+            <input (keyup)="onSearch($event.target.value)" id="name" placeholder="Search"/>
+        </div>
+        <div class="sort_box">
+            <span>Sort By: </span>
+            <select name="" id="" (change)="onSortByChange($event.target.value)">
+                <option [value]="sortItem | lowercase" *ngFor="let sortItem of sortItmeList">{{sortItem}}</option>
+            </select>
+            <!-- <ul class="sort_list" (click)="">
+                <li *ngFor="let sortItem of sortItmeList" (click)="onSortClick(sortItem)">
+                    <span>sortItem</span>
+                </li>
+            </ul> -->
+        </div>
+    </div>
+</section>

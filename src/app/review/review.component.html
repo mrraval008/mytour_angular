@@ -1,0 +1,12 @@
+<section class="review_section">
+    <div class="review_container">
+        <div class="review_notes">
+            <textarea [(ngModel)]="comments"></textarea>
+        </div>
+        <app-rating (ratingSelectionChangedEvent)="ratingSelectionChanged($event)"></app-rating>
+        <div class="submit">
+            <button (click)="submitReview()">Submit review</button>
+        </div>
+    </div>
+
+</section>

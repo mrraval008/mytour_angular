@@ -1,0 +1,123 @@
+
+
+
+    <!-- <script>
+    // mapboxgl.accessToken = 'pk.eyJ1IjoibWlsYW4wMDgiLCJhIjoiY2s2bmxvMTJwMGJpdDNtcWJnczNjZHB5NCJ9.6aCPEDk3WL9UkbWaNe6J7w'
+    // var map = new mapboxgl.Map({
+    // container: 'map',
+    // style: 'mapbox://styles/mapbox/streets-v11'
+    // });
+    </script> -->
+
+<section class="tour_detail_container">
+
+    <div class="detail_header">
+        <div class="detail_picture">
+                <div class="card_picture_overlay"></div>
+                <img src="../../assets/img/tours/{{tourData.imageCover}}">
+        </div>
+        <div class="detail_title">
+            <span class="title">{{tourData.name}}</span>
+            <div class="detail_title__text">
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span>{{tourData.duration}} Days</span>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <span>{{tourData.startLocation.description}}</span>
+            </div>
+        </div>
+    </div>
+    <div class="detail_info">
+        <div class="detail_quickfacts_container">
+            <div class="detail_quickfacts">
+                <h3>Quick Facts</h3>
+                <div class="detail_factbox">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <h2>NEXT DATE</h2>
+                    <span>{{tourData.startDate | date:'MMM yyyy'}}</span>
+                </div>
+                <div class="detail_factbox">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <h2>DIFFICULTY</h2>
+                    <span>{{tourData.difficulty}}</span>
+                </div>
+                <div class="detail_factbox">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <h2>PARTICIPANTS</h2>
+                    <span>{{tourData.maxGroupSize}}</span>
+                </div>
+                <div class="detail_factbox">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <h2>RATING</h2>
+                    <span>{{tourData.ratingsAverage}}/5</span>
+                </div>
+
+                <h3>Your Tour Guides</h3>
+                <div class="detail_factbox" *ngFor="let guide of tourData.guides">
+                    <img src="../../assets/img/users/{{guide.photo}}">
+                    <h2>{{guide.role.split('-').join(' ')}}</h2>
+                    <span>{{guide.name}}</span>
+                </div>
+                <!-- <div class="detail_factbox">
+                    <img src="../../assets/img/tours/tour-1-1.jpg">
+                    <h2>Lead Guide</h2>
+                    <span>Milan Raval</span>
+                </div> -->
+            </div>
+
+        </div>
+        <div class="detail_about_container">
+            <div class="detail_about">
+                <h3>About {{tourData.name}} tour</h3>
+                <p>{{tourData.description}}</p>
+            </div>
+
+        </div>
+    </div>
+    <div class="detail_images">
+        <div *ngFor="let img of tourData.images">
+                <img src="../../assets/img/tours/{{img}}">
+        </div>
+    </div>
+    <div class="detail_mapbox">
+        <app-map></app-map>
+    </div>
+    <div class="detail_ratings_container">
+        <div class="detail_ratings" *ngIf="reviewData.length > 0">
+            <div class="detail_ratingCard" *ngFor="let review of reviewData" >
+                <div class="ratingHeader">
+                    <img src="../../assets/img/tours/{{review.user[0].photo}}">
+                    
+                    <h3>{{review.user[0].role}}</h3>
+                </div>
+                <div class="ratingText">
+                    <span> {{review.review}}</span>
+                </div>
+                <div class="ratingStar">
+                    <app-rating [isReadOnly]="true" [rating]="review.rating"></app-rating>
+                </div>
+            </div>
+        </div>
+        <div class="no_review" *ngIf="reviewData.length == 0">
+            <h3 >No Reviews</h3>
+        </div>
+    </div>
+    <div class="section_booknow">
+        <div  class="booknow">
+            <div class="booknowimages">
+                <div *ngFor="let img of tourData.images">
+                        <img src="../../assets/img/tours/{{img}}">
+                </div>
+            </div>
+            <div class="booknowtext">
+                <h2>WHAT ARE YOU WAITING FOR?</h2>
+                <span>{{tourData.duration}} days. 1 adventure. Infinite memories. Make it yours today!</span>
+            </div>
+            <div class="">
+                <button href="" (click)="bookTour(tourData._id)">Book Tour Now !</button>
+            </div>
+        </div>
+
+    </div>
+    <div class="footer">
+    </div>
+</section>

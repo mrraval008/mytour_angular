@@ -1,0 +1,50 @@
+
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+
+<section class="cube_section">
+    <app-search-header  style="background: transparent" [sortItmeList]="sortItmeList" (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
+
+    <button class="create_button" (click)="onCreateTour()">Create Tour</button>
+  
+    <div class="swiper-container" *ngFor="let tour of tourList">
+    <div class="swiper-wrapper">
+      <div class="swiper-slide">
+        <div class="imgBox">
+          <img src="../../assets/img/tours/{{tour.imageCover}}">
+        </div>
+        <div class="content">{{tour.name}}</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="imgBox">
+            <img src="../../assets/img/tours/{{tour.images[0]}}" alt="../../assets/img/tours/{{tour.imageCover}}">
+        </div>
+        <div class="content">{{tour.startLocation.description}}</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="imgBox">
+          <img src="../../assets/img/tours/{{tour.images[1]}}" alt="../../assets/img/tours/{{tour.imageCover}}">
+        </div>
+        <div class="content">{{tour.duration}} Days</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="imgBox">
+          <img src="../../assets/img/tours/{{tour.images[2]}}" alt="../../assets/img/tours/{{tour.imageCover}}">
+        </div>
+        <div class="content">{{tour.difficulty}}</div>
+      </div>
+      <div class="swiper-slide">
+        <div class="imgBox">
+          <img src="../../assets/img/tours/{{tour.images[3]}" alt="../../assets/img/tours/{{tour.imageCover}}">
+        </div>
+        <div class="content">The Snow Hiker1</div>
+      </div>
+    </div>
+    <!-- Add Pagination -->
+    <div class="swiper-pagination">
+        
+    </div>
+    <i class="fa fa-pencil-square-o edit_icon" (click)="onEditTour(tour)" aria-hidden="true"></i>
+    <i class="fa fa-trash-o delete_icon" (click)="onDeleteTour(tour)" aria-hidden="true"></i>
+    
+</div>
+</section>

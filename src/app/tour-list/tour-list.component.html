@@ -1,0 +1,613 @@
+<div class="card_container">
+    <app-user-profile-card></app-user-profile-card>
+        
+    <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+    <app-search-header  (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
+        <div class="card" *ngFor="let tour of tourList">
+                <div class="card_header" >
+                    <div class="card_picture">
+                        <div class="card_picture_overlay"></div>
+                        <img src="../../assets/img/tours/{{tour.imageCover}}">
+                    </div>
+                    <div class="card_title">
+                        <span>{{tour.name}}</span>
+                    </div>
+                </div>
+                <div class="card_details">
+                    <div class="card_subtitle">
+                        <h4>{{tour.difficulty}} {{tour.duration}}-DAY TOUR</h4>
+                    </div>
+                    <div class="card_text">
+                        <p>{{tour.summary}}</p>
+                    </div>
+                    <div class="card_data_container">
+                        <div class="card_data">
+                            <i class="fa fa-map-marker" aria-hidden="true"></i>
+                            <span>{{tour.startLocation.description}}</span>
+                        </div>
+                        <div class="card_data">
+                            <i class="fa fa-calendar" aria-hidden="true"></i>
+                            <span>{{tour.startDate | date:'MMM yyyy'}}</span>
+                        </div>
+                        <div class="card_data">
+                            <i class="fa fa-flag-o" aria-hidden="true"></i>
+                            <span>3 stops</span>
+                        </div>
+                        <div class="card_data">
+                            <i class="fa fa-users" aria-hidden="true"></i>
+                            <span>{{tour.maxGroupSize}}</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="card_footer">
+                    <div>
+                        <p class="cost">
+                            <span class="price">${{tour.price}}</span>
+                            <span>per Person</span>
+                        </p>
+                        <p class="rating">
+                            <span class="rating_value">{{tour.ratingsAverage}}</span>
+                            <span> rating ({{tour.ratingsQuantity}})</span>
+                        </p>
+                    </div>
+                    <div class="card_detail">
+                        <a href="/tourDetails/{{tour.id}}">Details</a>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+
+    <!-- <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card_header">
+            <div class="card_picture">
+            </div>
+            <div class="card_title">
+                <span>THE FOREST HIKER</span>
+            </div>
+        </div>
+        <div class="card_details">
+            <div class="card_subtitle">
+                <h4>EASY 5-DAY TOUR</h4>
+            </div>
+            <div class="card_text">
+                <p>Exploring the jaw-dropping US east coast by foot and by boat</p>
+            </div>
+            <div class="card_data_container">
+                <div class="card_data">
+                    <i class="fa fa-map-marker" aria-hidden="true"></i>
+                    <span>Oregon, US</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <span>April 2021</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-flag-o" aria-hidden="true"></i>
+                    <span>3 stops</span>
+                </div>
+                <div class="card_data">
+                    <i class="fa fa-users" aria-hidden="true"></i>
+                    <span>25 people</span>
+                </div>
+            </div>
+        </div>
+        <div class="card_footer">
+            <div>
+                <p class="cost">
+                    <span class="price">$497</span>
+                    <span>per Person</span>
+                </p>
+                <p class="rating">
+                    <span class="rating_value">4.8</span>
+                    <span> rating (12)</span>
+                </p>
+            </div>
+            <div class="card_detail">
+                <a>Details</a>
+            </div>
+        </div>
+    </div> -->
+</div>

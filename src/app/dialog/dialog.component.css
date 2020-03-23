@@ -1,0 +1,54 @@
+.overlay {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  
+  .dialog {
+    box-shadow: 0 14px 28px rgba(0, 0, 0, 0.25), 0 10px 10px rgba(0, 0, 0, 0.22);
+    background-color: white;
+    width: 70%;
+    height: 95%;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    background:url("../../assets/img/tours/background_1.png");
+    
+  }
+  .dialog::-webkit-scrollbar {
+    display: none;
+}
+
+.edit_header{
+  background: #7dd56f;
+  align-items: center;
+  color: white;
+  font-size: 1.2rem;
+  padding: 1rem;
+  z-index: 111;
+  box-shadow: 0 1.5rem 4rem rgba(0, 0, 0, 0.2);
+  display: inline;
+  position: fixed;
+  width: 68.6%;
+  
+}
+
+.edit_header i{
+  font-size: 2rem;
+  cursor: pointer;
+  float: right;
+}
+
+h2{
+  margin: 0;
+  display: inline;
+  margin-left: 1rem;
+}

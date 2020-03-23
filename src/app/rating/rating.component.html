@@ -1,0 +1,29 @@
+<section class="rating_section">
+    <div class="star_container">
+        <input type="radio" name="star" id="star1" [checked]="rating == 5" (change)="ratingChanged(5)">
+        <label for="star1" [class.readonly]="isReadOnly">
+            <img src="../../assets/img/review/cool.png">
+            <h4>Loved It</h4>
+        </label>
+        <input type="radio" name="star"  id="star2" [checked]="rating == 4" (change)="ratingChanged(4)">
+        <label for="star2" [class.readonly]="isReadOnly">
+            <img src="../../assets/img/review/liked.png">
+            <h4>Liked It</h4>
+        </label>
+        <input type="radio" name="star" id="star3" [checked]="rating == 3" (change)="ratingChanged(3)">
+        <label for="star3" [class.readonly]="isReadOnly">
+            <img src="../../assets/img/review/itsok.png">
+            <h4>Its Ok</h4>
+        </label>
+        <input type="radio" name="star" id="star4" [checked]="rating == 2" (change)="ratingChanged(2)">
+        <label for="star4" [class.readonly]="isReadOnly">
+            <img src="../../assets/img/review/dislike.png">
+            <h4>Dislike It</h4>
+        </label>
+        <input type="radio" name="star" id="star5" [checked]="rating == 1" (change)="ratingChanged(1)">
+        <label for="star5" [class.readonly]="isReadOnly">
+            <img src="../../assets/img/review/hated.png">
+            <h4>Hated It</h4>
+        </label>
+    </div>
+</section>

@@ -1,0 +1,177 @@
+<!-- <button (click)="onLogin()">Login</button> -->
+
+
+
+<section class="login_container">
+    <div id="flipbook">
+        <div class="hard"> <h1>lets Register yourself</h1></div>
+        <div class="hard"></div>
+        <div class="login_section">
+            <h2>Welcome Back</h2>
+            <div class="form_container">
+                <form #loginForm="ngForm" (ngSubmit)="onLogin()">
+                    <div class="floatContainer">
+                        <input class="floatInput" name="userEmail" type="text" required [(ngModel)]="loginModel.email">
+                        <span class="floatingPlaceHolder">Enter Email</span>
+                    </div>
+                    <div class="floatContainer">
+                        <input class="floatInput" name="userPassword" type="password" required [(ngModel)]="loginModel.password">
+                        <span class="floatingPlaceHolder">Enter password</span>
+                    </div>
+                    <input type="submit" value="Sign In" [disabled]="loginForm.form.invalid">
+                </form>
+            </div>
+            <div class="forgot_password">
+                <span (click)="openForgotPassword()">Forgot your password?</span>
+            </div>
+            <div class="register">
+                Need an account?
+                <span (click)="openSignup()">Register</span>
+            </div>
+        </div>
+        <div> Page 2 </div>
+        <div class="signUp_section">
+            <h2>Welcome</h2>
+            <div class="form_container">
+                <form #SignUpForm="ngForm" (ngSubmit)="onSignUp()">
+                    <div class="floatContainer">
+                        <input class="floatInput" name="name" type="text" required [(ngModel)]="signUpModel.name" required>
+                        <span class="floatingPlaceHolder">Enter Name</span>
+                    </div>
+                    <div class="floatContainer">
+                        <input class="floatInput" name="email" type="text" required [(ngModel)]="signUpModel.email" required>
+                        <span class="floatingPlaceHolder">Enter Email</span>
+                    </div>
+                    <div class="floatContainer">
+                        <input class="floatInput" name="password" required [(ngModel)]="signUpModel.password" type="password" required>
+                        <span class="floatingPlaceHolder">Create password</span>
+                    </div>
+                    <div class="floatContainer">
+                        <input class="floatInput" name="passwordConfirm" required [(ngModel)]="signUpModel.passwordConfirm" type="password" required>
+                        <span class="floatingPlaceHolder">Confirm password</span>
+                    </div>
+                    <input type="submit" value="Sign Up" [disabled]="SignUpForm.form.invalid">
+                </form>
+            </div>
+        </div>
+
+
+        <div> Page 4 </div>
+        <div class="login_section">
+                <h2>Forgot Password ? <br> Dont Worry</h2>
+                <div class="form_container">
+                    <form onSubmit="return checkAnswer();">
+                        <div class="floatContainer">
+                            <input class="floatInput" type="text" required>
+                            <span class="floatingPlaceHolder">Enter Email</span>
+                        </div>
+                        <input type="submit" value="Get My Password">
+                    </form>
+                </div>
+            </div>
+        <div class="hard"></div>
+        <div class="hard"></div>
+    </div>
+
+</section>
+
+
+<!-- 
+<input type="number" id="pageFld" min=1/>
+<button id="prevBtn">Previous</button>
+<button id="nextBtn">Next</button>
+ -->
+
+
+
+
+
+
+
+<!-- <div id="loginBook">
+        <div class="hard"> Turn.js </div>
+        <div class="hard"></div>
+        <div> Page 1 </div>
+        <div> Page 2 </div>
+        <div> Page 3 </div>
+        <div> Page 4 </div>
+        <div class="hard"></div>
+        <div class="hard"></div>
+    </div> -->
+<!-- <section class="common login_container">
+                <div class="front">
+                        <form>
+                                <div class="input_box">
+                                    <span class="background"></span>
+                                    <input type="text" id="" required>
+                                    <span class="float_label">Enter Name</span>
+                                </div>
+                                <div class="input_box">
+                                    <span class="background"></span>
+                                    <input type="text" id="" required>
+                                    <span class="float_label">Enter Name</span>
+                                </div>
+                                <button class="btn login">Login</button>
+        
+                            </form>
+                        </div>
+                        <div class="back">
+                            Back Of Login
+                        </div>
+        </section>
+       
+        <section class="common signup_container">
+                <div class="front">
+                        <form>
+                                <div class="input_box">
+                                    <span class="background"></span>
+                                    <input type="text" id="" required>
+                                    <span class="float_label">Enter Name</span>
+                                </div>
+                                <div class="input_box">
+                                    <span class="background"></span>
+                                    <input type="text" id="" required>
+                                    <span class="float_label">Enter Name</span>
+                                </div>
+                                <button class="btn login">Signup</button>
+        
+                            </form>
+                        </div>
+                        <div class="back">
+                            Back Of Signup
+                        </div>
+        </section>
+
+        <section class="common forgot_password_container">
+                <div class="front">
+                <form>
+                        <div class="input_box">
+                            <span class="background"></span>
+                            <input type="text" id="" required>
+                            <span class="float_label">Enter Name</span>
+                        </div>
+                        <div class="input_box">
+                            <span class="background"></span>
+                            <input type="text" id="" required>
+                            <span class="float_label">Enter Name</span>
+                        </div>
+                        <button class="btn login">Forgot password</button>
+
+                    </form>
+                </div>
+                <div class="back">
+                    Back Of Forgot Password
+                </div>
+        </section>
+        <section class="common intro_container">
+                    <div class="front intro_front">
+                        <h3>Register Your Self</h3>
+                    </div>
+                   <div class="back intro_back">
+                       <div class="quote_container">
+                            <i class="fa fa-quote-left" aria-hidden="true"></i>
+                            <p>Some Famouus quote abother </p>  
+                            <i class="fa fa-quote-right" aria-hidden="true"></i>                          
+                       </div>
+                    </div>
+        </section> -->

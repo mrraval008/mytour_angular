@@ -1,0 +1,25 @@
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+<app-search-header  style="background: transparent" [sortItmeList]="sortItmeList"  (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
+
+<section class="user_section">
+    <div class="card" *ngFor="let user of userList">
+        <div class="front_box">
+            <div class="img_box">
+                <img src="../../assets/img/users/{{user.photo}}">
+            </div>
+            <div class="username">
+                <h3>{{user.name}}</h3>
+            </div>
+        </div>
+        <div class="details">
+            <div class="content">
+                <h2>{{user.name}}</h2>
+                <h3>{{user.role}}</h3>
+                <i class="fa fa-pencil-square-o edit_icon"  (click)="onEditClick(user)" aria-hidden="true"></i>
+                <i class="fa fa-trash-o delete_icon" (click)="onDeleteClick(user)" aria-hidden="true"></i>
+
+            </div>
+        </div>
+    </div>
+
+</section>

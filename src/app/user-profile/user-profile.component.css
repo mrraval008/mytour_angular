@@ -1,0 +1,172 @@
+:host{
+    display: flex;
+    justify-content: center;
+    margin: 1rem 0;
+}
+
+.user_profile_section{
+    background:#ecf0f1;
+    width: 95%;
+    padding-bottom: 3rem;
+}
+.profile_card{
+    background: white;
+    color: #34495e;
+    border-radius: 2rem;
+    margin-bottom: 3rem;
+}
+
+
+img{
+    width: 100%;
+    height: 100%;
+}
+.img_section{
+    margin: 3rem;
+    border: 6px dashed #e9e9e9;
+    width: 230px;
+    height: 230px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+.header_section{
+    display: flex;
+    background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/img/users/user_background.jpg");
+    background-position: center;
+    background-size: cover;
+    margin-bottom: 2rem;
+    color: white;
+}
+h1,h2{
+    margin: 0;
+    padding: 0;
+}
+.header_content h1{
+    font-size: 3rem;
+    margin-top: 3rem
+}
+.header_content h2{
+    font-size: 2rem
+}
+
+
+.profile_section{
+    width: 96%;
+    margin: auto;
+}
+
+
+.profile_header{
+    border-bottom: 1px solid gray;
+    width: 100%;
+    margin-bottom: 3rem;
+}
+.profile_header{
+    margin: 0;
+    padding: 0;
+    font-size: 5rem;
+}
+
+.card_header{
+    padding: 1rem 0;
+    border-bottom: 1px solid #2c3e50;
+    display: flex;
+    width: 90%;
+    margin: auto;
+    align-items: center;
+}
+.card_header span{
+    font-size: 2rem;
+}
+.card_header button{
+    margin-left: auto;
+    border: navajowhite;
+    padding: 0.5rem;
+    background: #7dd56f;
+    color: white;
+    font-size: 1.7rem;
+}
+
+
+
+.user_profile{
+    display: flex;
+    padding: 2rem 0 0 0;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+.input_box{
+    position: relative;
+    min-width: 350px;
+    min-height: 40px;
+    margin-bottom: 3rem;
+ }
+.input_box .float_label{
+    position: absolute;
+    left: 0;
+    font-size: 1.5rem;
+    transition: 0.2s ease all;
+    pointer-events: none;
+ }
+ .input_box input{
+    border: none;
+    height: 30px;
+    width: 100%;
+    outline: none;
+    background: transparent;
+    border-bottom: 1px solid #7dd56f;
+    font-size: 1.5rem;
+ }
+ .input_box input:focus ~ .float_label,.input_box input:not(:focus):valid ~ .float_label,.input_box input:read-only ~ .float_label{
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #7dd56f;
+    top: -2.2rem;
+ 
+ }
+ .input_box input:focus,.input_box input:not(:focus):valid{
+    border-bottom: 1px solid #28b487;
+    transition: background-color 0.5s ease-in;
+ }
+ .card_content{
+    display: flex;
+    padding: 2rem;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    width: 90%;
+    margin: auto;
+  }
+
+.upload_photo_div{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: flex;
+    -webkit-box-align: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    justify-content: center;
+    background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+    transform: translateY(-100%);
+    transition: .4s linear;
+}
+
+.upload_photo_div input {
+    display: none
+}
+.upload_photo_div i{
+    font-size: 3rem;
+}
+.upload_photo_div label{
+    border: 3px solid;
+    border-radius: 50%;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.img_section:hover .upload_photo_div{
+    transform: translateY(0);
+}

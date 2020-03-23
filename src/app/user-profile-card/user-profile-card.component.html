@@ -1,0 +1,18 @@
+<div class="container">
+    
+        <div class="inner">
+            <div class="header_container">
+                <figure>
+                        <img src="../../assets/img/users/{{userData.photo}}">
+                </figure>
+                <div class="header_text">
+                    <h2>{{userData.name}}</h2>
+                    <h3>{{userData.role | uppercase}}</h3>
+                </div>
+            </div>
+            <div class="button_container">
+                <a (click)="onLogOut()">Log out</a>
+                <a href="/userManage/my-profile">Manage Profile</a>
+            </div>
+        </div>
+</div>

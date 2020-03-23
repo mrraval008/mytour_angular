@@ -1,0 +1,198 @@
+
+ /* tour section */
+ .edit_container{
+    flex: 2;
+    position: relative;
+    padding: 0 8px
+}
+
+.tour_header{
+   display: flex;
+   flex-wrap: wrap-reverse;
+   min-height: 15vh;
+   position: relative;
+   transform: translateY(50px);
+}
+
+h2{
+  margin: 0;
+  padding: 0;
+}
+.tour_background{
+  position: absolute;
+  width:100%;
+  left:0;
+  top:0;
+  height: 100%;
+  background-image: linear-gradient( to bottom right, rgba(125, 213, 111, 0.85), rgba(40, 180, 135, 0.85) ),url("../../assets/img/tours/tour-1-1.jpg");
+  background-position: center;
+  background-size: cover;
+  clip-path: polygon(0 0, 100% 0%, 100% 80%, 0% 98%);
+}
+
+.tour_image{
+   flex: 1;
+   justify-content: center;
+   display: flex;
+   z-index: 1;
+   overflow: hidden;
+}
+.tour_intro_container{
+   flex: 1;
+   display: flex;
+   justify-content: center;
+   z-index: 1
+}
+.tour_intro {
+   margin-top: 3rem;
+   color: white
+}
+.tour_intro h2{
+  font-size: 5rem;
+   margin: 0;
+}
+.tour_intro h3{
+   font-size: 2rem;
+   margin: 0;
+}
+.tour_image img{
+   width: 100%;
+   height: 100%;
+   /* clip-path: polygon(50% 0%, 100% 25%, 100% 75%, 50% 100%, 0% 75%, 0% 25%); */
+}
+
+.tour_profile_container{
+   margin-top: 5rem;
+}
+.tour_profile{
+  display: flex;
+  padding: 3rem;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+.input_box{
+   position: relative;
+   min-width: 250px;
+   min-height: 40px;
+   margin-bottom: 8rem;
+}
+.input_box .float_label{
+   position: absolute;
+   top: -0.8rem;
+   left: 0;
+   font-size: 2rem;
+   transition: 0.2s ease all;
+   pointer-events: none;
+}
+.input_box input{
+   border: none;
+   height: 30px;
+   width: 100%;
+   outline: none;
+   background: transparent;
+   border-bottom: 1px solid #7dd56f;
+   font-size: 2rem;
+}
+.input_box input:focus ~ .float_label,.input_box input:not(:focus):valid ~ .float_label,.select_label{
+   font-size: 1.5rem;
+   font-weight: bold;
+   color: #7dd56f;
+   top: -2.2rem;
+}
+.input_box input:focus,.input_box input:not(:focus):valid {
+   border-bottom: 1px solid #28b487;
+   transition: background-color 0.5s ease-in;
+}
+.select_label{
+  position: absolute;
+  left: 0;
+}
+.hidden{
+    visibility: hidden;
+}
+
+.grid{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+ag-grid-angular{
+  height: 100px;
+  min-height: 200px;
+}
+.start_location{
+  height: 65px;
+  min-height: 100px
+}
+.grid_label{
+  color: #7dd56f;
+  font-size: 2rem;
+  font-weight: bold;
+  position: relative !important;
+  top: 0
+}
+.btn{
+  border:none;
+  padding: 1rem;
+  cursor: pointer;
+  float: right;
+  margin-right: 2rem;
+  outline: none;
+  transform: translateY(-10px);
+  background: #7dd56f;
+  color: white;
+  border-radius: 2rem;
+  text-transform: uppercase;
+  
+}
+select{
+  border: none;
+  padding: 1rem 0;
+  width: 90%;
+  outline: none;
+  font-size: 2rem;
+}
+button:disabled{
+  opacity: 0.4;
+}
+
+
+.upload_photo_div{
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: -webkit-box;
+  display: flex;
+  -webkit-box-align: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  justify-content: center;
+  background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7));
+  transform: translateY(-100%);
+  transition: .4s linear;
+  color: white;
+}
+
+.upload_photo_div input {
+  display: none
+}
+.upload_photo_div i{
+  font-size: 3rem;
+}
+.upload_photo_div label{
+  border: 3px solid;
+  border-radius: 50%;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.tour_image:hover .upload_photo_div{
+  transform: translateY(0);
+}
+
+.image_container{
+  height: 230px;
+  width: 230px;
+  position: relative;
+}
