@@ -1,4 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+
 import { NgModule } from '@angular/core';
 
 import { FileDropDirective, FileSelectDirective} from 'ng2-file-upload';
@@ -13,6 +15,9 @@ import { AgGridModule } from 'ag-grid-angular';
 
 
 import { AuthInterceptor } from './interceptor';
+
+
+import { ToastrModule } from 'ngx-toastr';
 
 
 
@@ -76,7 +81,9 @@ import { UserProfileDialogWrapperComponent } from './user-profile-dialog-wrapper
     AppRoutingModule,
     HttpClientModule,
     FormsModule,
-    AgGridModule.withComponents([])
+    AgGridModule.withComponents([]),
+    BrowserAnimationsModule,
+    ToastrModule.forRoot()
   ],
   entryComponents: [EditUserComponent,EditTourComponent,DialogComponent,ReviewComponent,UserProfileDialogWrapperComponent],
   providers: [

@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router , ActivatedRoute ,ParamMap} from '@angular/router';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 import { LoginService } from 'src/app/login.service';
 import { HelperService } from 'src/app/helper.service';
 import { UserService } from 'src/app/user.service';
@@ -12,87 +12,145 @@ declare var $: any;
 export class LoginPageComponent implements OnInit {
 
   private loginModel = {};
-  private signUpModel = {}
-  private error;
+  private signUpModel = {};
+  private resetPasswordModel = {};
+  private resetPasswordToken = "";
 
-  constructor(private router: Router,private route:ActivatedRoute,private loginService:LoginService,private helperService:HelperService,private userService:UserService) { }
+  private error;
+  private userEmail;
+
+  constructor(private router: Router, private route: ActivatedRoute, private loginService: LoginService, private helperService: HelperService, private userService: UserService) { }
 
   ngOnInit() {
     $("#flipbook").turn({
       autoCenter: true,
-      acceleration:false
+      acceleration: false
     });
+    this.route.paramMap.subscribe((params:ParamMap)=>{
+      this.resetPasswordToken = params.get('token');
+    })
 
-    setTimeout (() => {
-      $("#flipbook").turn("page", 2);
+    setTimeout(() => {
+      if(this.router.url.includes("reset-password")){
+        if(!this.helperService.isEmpty(this.resetPasswordToken)){
+          $("#flipbook").turn("page", 8);
+        }
+      }else{
+        $("#flipbook").turn("page", 2);
+      }
     }, 1500);
+
+   
+
+
   }
 
-  openSignup(){
+  openSignup() {
     $("#flipbook").turn("page", 5);
   }
-  
-  openForgotPassword(){
+
+  openForgotPassword() {
     $("#flipbook").turn("page", 7);
   }
 
-  onLogin(e){
+  onLogin(e) {
     let reqBody = this.loginModel;
-    this.loginService.login(reqBody).subscribe(response=>{
+    this.loginService.login(reqBody).subscribe(response => {
       console.log(response)
-      if(response["status"] == "success"){
-        this.helperService.updateLocalStorageData("authToken",response.token);
+      if (response["status"] == "success") {
+        this.helperService.updateLocalStorageData("authToken", response.token);
         let data = response.data.user;
         // this.helperService.updateLocalStorageData("userId",data._id)
         this.userService.setUserId(data._id);
         this.router.navigate(['/tourDetails']);
-      }else{
+      } else {
         // this.error = response
       }
       // this.TourList = data
-    },error=>{
+    }, error => {
       this.error = error
     })
   }
 
 
 
-  onSignUp(e){
+  onSignUp(e) {
     let reqBody = this.signUpModel;
-    this.loginService.signup(reqBody).subscribe(response=>{
+    this.loginService.signup(reqBody).subscribe(response => {
       console.log(response)
-      if(response["status"] == "success"){
-        this.helperService.updateLocalStorageData("authToken",response.token);
+      if (response["status"] == "success") {
+        this.helperService.updateLocalStorageData("authToken", response.token);
         let data = response.data.user;
         // this.helperService.updateLocalStorageData("userId",data._id)
         this.userService.setUserId(data._id);
         this.router.navigate(['/tourDetails']);
-      }else{
+      } else {
         // this.error = response
       }
       // this.TourList = data
-    },error=>{
+    }, error => {
       this.error = error
     })
   }
 
+
+  onForgotPassword() {
+    this.loginService.forgotPassword({email:this.userEmail}).subscribe(response => {
+      console.log(response)
+      if (response["status"] == "success") {
+        // this.helperService.updateLocalStorageData("authToken", response.token);
+        // let data = response.data.user;
+        // // this.helperService.updateLocalStorageData("userId",data._id)
+        // this.userService.setUserId(data._id);
+        // this.router.navigate(['/tourDetails']);
+      } else {
+        // this.error = response
+      }
+      // this.TourList = data
+    }, error => {
+      this.error = error
+    })
+  }
+
+
+  onResetPassword() {
+    let reqBody = this.resetPasswordModel;
+    if(!this.helperService.isEmpty(this.resetPasswordToken)){
+      this.loginService.resetPassword(reqBody,this.resetPasswordToken).subscribe(response => {
+        console.log(response)
+        if (response["status"] == "success") {
+          // this.helperService.updateLocalStorageData("authToken", response.token);
+          // let data = response.data.user;
+          // // this.helperService.updateLocalStorageData("userId",data._id)
+          // this.userService.setUserId(data._id);
+          // this.router.navigate(['/tourDetails']);
+        } else {
+          // this.error = response
+        }
+        // this.TourList = data
+      }, error => {
+        this.error = error
+      })
+    }
+
+  }
 }
 
 
 // $("#pageFld").val($("#flipbook").turn("page"));
-  
+
   // $("#flipbook").bind("turned", function(event, page, view) {
   //     $("#pageFld").val(page);
   // });
-  
+
   // $("#pageFld").change(function() {
   //     $("#flipbook").turn("page", $(this).val());
   // });
-  
+
   // $("#prevBtn").click(function() {
   //     $("#flipbook").turn("previous");
   // });
-  
+
   // $("#nextBtn").click(function() {
   //     $("#flipbook").turn("next");
   // });

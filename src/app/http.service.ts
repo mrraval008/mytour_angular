@@ -26,13 +26,22 @@ export class HttpService {
 
 
   login(reqBody){
-    let loginURL = this.serverUrl + "/users/login";
-    return this.http.post<any>(loginURL,reqBody);
+    let _url = this.serverUrl + "/users/login";
+    return this.http.post<any>(_url,reqBody);
   }
 
   signup(reqBody){
-    let loginURL = this.serverUrl + "/users/signup";
-    return this.http.post<any>(loginURL,reqBody);
+    let _url = this.serverUrl + "/users/signup";
+    return this.http.post<any>(_url,reqBody);
+  }
+
+  forgotPassword(reqBody){
+    let _url = this.serverUrl + "/users/forgotPassword";
+    return this.http.post<any>(_url,reqBody);
+  }
+  resetPassword(reqBody,token){
+    let _url = this.serverUrl + "/users/resetPassword/" + token;
+    return this.http.post<any>(_url,reqBody);
   }
 
   get(url){
