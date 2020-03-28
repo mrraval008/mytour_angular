@@ -14,7 +14,10 @@
     height: 100%;
     width: 100%;
     position: relative;
-    
+}
+.detail_picture img{
+    height: 100%;
+    width: 100%;
 }
 .card_picture_overlay{
     position: absolute;
@@ -120,6 +123,7 @@
     height: 300px;
     flex-wrap: wrap;
     width: 100%;
+    height: 70vh;
     transform: translateY(-140px) skewY(-5deg);
 }
 .detail_images div{
@@ -133,7 +137,8 @@
 
 .detail_mapbox{
     width: 100%;
-    height: 70vh;
+    height: 80vh;
+    transform: translateY(-140px) skewY(-5deg);
 }
 
 
@@ -142,7 +147,7 @@
     height: 90vh;
     display: flex;
     align-items: center;
-    transform: skewY(-5deg);
+    transform: skewY(-5deg) translateY(-25%);
 }
 .detail_ratings{
     display: flex;
@@ -191,12 +196,12 @@
 } */
 
 .section_booknow{
-    height: 90vh;
+    height: 70vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: #f7f7f7;
-    transform: skewY(-5deg);
+    transform: skewY(-5deg) translateY(-40%);
 }
 .booknow{
     width: 80%;

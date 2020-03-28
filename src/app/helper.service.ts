@@ -27,7 +27,7 @@ export class HelperService {
     searchCriterion = JSON.parse(searchCriterion);
     if(searchCriterion.searchVal && searchCriterion.searchVal != ""){
       let searchValue = searchCriterion.searchVal.split(" ").join("-");
-      formattedURLArr.push(`slug=${searchValue}`)
+      formattedURLArr.push(`name=${searchValue}`)
     }
     if(searchCriterion.sortVal && searchCriterion.sortVal != ""){
       formattedURLArr.push(`sort=${searchCriterion.sortVal}`)

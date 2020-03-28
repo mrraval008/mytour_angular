@@ -57,6 +57,9 @@ const routes: Routes = [
       },
       {
         path:"login",component:LoginPageComponent
+      },
+      {
+        path:"reset-password/:token",component:LoginPageComponent
       }
     ]
   },

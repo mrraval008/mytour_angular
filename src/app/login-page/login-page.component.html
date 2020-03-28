@@ -60,15 +60,32 @@
         <div class="login_section">
                 <h2>Forgot Password ? <br> Dont Worry</h2>
                 <div class="form_container">
-                    <form onSubmit="return checkAnswer();">
+                    <form #ForgotPassworfForm="ngForm" (ngSubmit)="onForgotPassword()">
                         <div class="floatContainer">
-                            <input class="floatInput" type="text" required>
+                            <input class="floatInput" name="userEmail" type="text" required [(ngModel)]="userEmail">
                             <span class="floatingPlaceHolder">Enter Email</span>
                         </div>
                         <input type="submit" value="Get My Password">
                     </form>
                 </div>
             </div>
+            <div> Page 5</div>
+            <div class="login_section">
+                    <h2>Reset your Password</h2>
+                    <div class="form_container">
+                        <form #ResetPassworForm="ngForm" (ngSubmit)="onResetPassword()">
+                                <div class="floatContainer">
+                                        <input class="floatInput" name="password" required [(ngModel)]="resetPasswordModel.password" type="password" required>
+                                        <span class="floatingPlaceHolder">Enter password</span>
+                                    </div>
+                                    <div class="floatContainer">
+                                        <input class="floatInput" name="passwordConfirm" required [(ngModel)]="resetPasswordModel.passwordConfirm" type="password" required>
+                                        <span class="floatingPlaceHolder">Confirm password</span>
+                                    </div>
+                            <input type="submit" value="Reset My Password">
+                        </form>
+                    </div>
+                </div>
         <div class="hard"></div>
         <div class="hard"></div>
     </div>

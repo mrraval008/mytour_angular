@@ -5,6 +5,8 @@ import { MapComponent } from '../map/map.component';
 import { BookingService } from 'src/app/booking.service';
 import { ReviewService } from 'src/app/review.service';
 
+import { ToastrService } from 'ngx-toastr';
+
 
 declare var Stripe: any;
 
@@ -17,7 +19,7 @@ declare var Stripe: any;
 })
 export class TourDetailsComponent implements OnInit {
 
-  constructor(private tourService:TourService,private router: Router,private route:ActivatedRoute,private bookingService:BookingService,private reviewService:ReviewService) { }
+  constructor(private tourService:TourService,private router: Router,private route:ActivatedRoute,private bookingService:BookingService,private reviewService:ReviewService,private toastr: ToastrService) { }
 
   private tourData = [];
   private error = ""
@@ -33,9 +35,17 @@ export class TourDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((params:ParamMap)=>{
     this.tourId = params.get('id');
     this.getTour(this.tourId);
+
+    setTimeout(()=>{
+      this.showToaster();
+    },3000)
     // this.getReviews(this.tourId);
     })
   }
+
+  showToaster(){
+    this.toastr.success("Hello, I'm the toastr message.")
+}
 
   getTour(tourId){
     this.tourService.getTour(tourId).subscribe(response=>{

@@ -11,15 +11,24 @@ import { HttpService } from 'src/app/http.service';
 })
 export class LoginService {
 
-  constructor(private httpService: HttpService ) { }
+  constructor(private httpService: HttpService) { }
 
-  login(reqBody){
-      return this.httpService.login(reqBody);
+  login(reqBody) {
+    return this.httpService.login(reqBody);
   }
 
-  signup(reqBody){
+  signup(reqBody) {
     return this.httpService.signup(reqBody);
-}
+  }
+
+  forgotPassword(reqBody){
+    return this.httpService.forgotPassword(reqBody);
+  }
+
+  resetPassword(reqBody,token){
+    return this.httpService.resetPassword(reqBody,token);
+    
+  }
 
 
 
