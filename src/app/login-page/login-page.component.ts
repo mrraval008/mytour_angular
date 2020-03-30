@@ -11,15 +11,15 @@ declare var $: any;
 })
 export class LoginPageComponent implements OnInit {
 
-  private loginModel = {};
-  private signUpModel = {};
-  private resetPasswordModel = {};
-  private resetPasswordToken = "";
+  public loginModel = {email:"",password:""};
+  public signUpModel = {name:"",email:"",password:"",passwordConfirm:""};
+  public resetPasswordModel = {password:"",passwordConfirm:""};
+  public resetPasswordToken = "";
 
-  private error;
-  private userEmail;
+  public error;
+  public userEmail;
 
-  constructor(private router: Router, private route: ActivatedRoute, private loginService: LoginService, private helperService: HelperService, private userService: UserService) { }
+  constructor(public router: Router, public route: ActivatedRoute, public loginService: LoginService, public helperService: HelperService, public userService: UserService) { }
 
   ngOnInit() {
     $("#flipbook").turn({
@@ -53,7 +53,7 @@ export class LoginPageComponent implements OnInit {
     $("#flipbook").turn("page", 7);
   }
 
-  onLogin(e) {
+  onLogin() {
     let reqBody = this.loginModel;
     this.loginService.login(reqBody).subscribe(response => {
       console.log(response)
@@ -74,7 +74,7 @@ export class LoginPageComponent implements OnInit {
 
 
 
-  onSignUp(e) {
+  onSignUp() {
     let reqBody = this.signUpModel;
     this.loginService.signup(reqBody).subscribe(response => {
       console.log(response)

@@ -6,6 +6,7 @@ import { HelperService } from 'src/app/helper.service';
 import { map } from 'rxjs/internal/operators/map';
 
 import {  FileUploader } from 'ng2-file-upload';
+declare var toastr: any;
 
 
 @Component({
@@ -17,24 +18,25 @@ import {  FileUploader } from 'ng2-file-upload';
 export class UserProfileComponent implements OnInit {
 
   constructor(
-    private route: ActivatedRoute, 
-    private userService: UserService, 
-    private helperService: HelperService, 
-    private router: Router,
+    public route: ActivatedRoute, 
+    public userService: UserService, 
+    public helperService: HelperService, 
+    public router: Router,
   ) {}
-  private userModel = { "email": "" };
-  @Input() private userDialogConfig;
-  private userId;
-  private showLoader = false;
-  private passwordModel = {};
-  private authToken = this.helperService.getLocalStorageData("authToken");
-  private UserPhotoURL = 'http://127.0.0.1:3000/api/v1/users/updateMe';
+  public userModel = { email: "",password:"",updatedPassword:"" ,updatedPasswordConfirm:"",photo:"",name:"",role:""};
+  @Input() public userDialogConfig;
+  public userId;
+  public showLoader = false;
+  public passwordModel = {password:"",updatedPassword:"",updatedPasswordConfirm:""};
+  public authToken = this.helperService.getLocalStorageData("authToken");
+  public UserPhotoURL = 'http://127.0.0.1:3000/api/v1/users/updateMe';
   public uploader:FileUploader = new FileUploader({url: this.UserPhotoURL,autoUpload: true,allowedFileType: ['image'],headers: [{ name: 'authorization', value: 'Bearer '+this.authToken}],itemAlias: 'photo'});
 
-  private isSelfUser = true; 
+  public isSelfUser = true; 
 
   ngOnInit() {
     this.showLoader = true;
+
     if (this.userDialogConfig) {
       console.log(this.userDialogConfig)
       this.isSelfUser = false;
@@ -55,9 +57,12 @@ export class UserProfileComponent implements OnInit {
     //able to deal with the server response.
     this.uploader.onCompleteItem = (item:any, response:any, status:any, headers:any) => {
         this.showLoader = false;
-        alert("Image Uploaded");
+        toastr.success('Image Uploaded Successfully');
         console.log("ImageUpload:uploaded:", item, status, response);
-      };
+    };
+
+    toastr.options = this.helperService.getToastOption();
+    
 
   }
 
@@ -92,7 +97,7 @@ export class UserProfileComponent implements OnInit {
   updateMe(){
     this.userService.updateMe(this.userModel).subscribe((response) => {
       if (response["status"] == "success") {
-        alert("user updated")
+        toastr.success('User Updated Successfully');
         this.showLoader = false;
       }
     }, (error) => {
@@ -104,7 +109,7 @@ export class UserProfileComponent implements OnInit {
   updateUser() {
     this.userService.updateUser(this.userId,this.userModel).subscribe((response) => {
       if (response["status"] == "success") {
-        alert("user updated")
+        toastr.success('User Updated Successfully');
         this.showLoader = false;
       }
     }, (error) => {
@@ -118,7 +123,7 @@ export class UserProfileComponent implements OnInit {
     this.passwordModel["email"] = this.userModel.email;
     this.userService.updatePassword(this.passwordModel).subscribe((response) => {
       if (response["status"] == "success") {
-        alert("password updated");
+        toastr.success('Password Updated Successfully');
         this.helperService.clearLocaleStorage();
         this.router.navigate(['/welcome/login']);
         this.showLoader = false;

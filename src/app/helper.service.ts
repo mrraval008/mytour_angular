@@ -81,4 +81,14 @@ export class HelperService {
 
     return true;
   }
+
+  getToastOption(){
+    return {
+      showEasing: 'swing',
+      closeButton: true,
+      closeMethod: 'fadeOut',
+      closeDuration: 300,
+      closeEasing: 'swing'
+    }
+  }
 }

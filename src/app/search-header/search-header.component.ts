@@ -14,13 +14,13 @@ import { JsonPipe } from '@angular/common';
 export class SearchHeaderComponent implements OnInit {
 
   constructor() { }
-  // private sortItmeList = ["Name","Duration","Rating","Price","Difficulty"];
-  @Input() private sortItmeList;
+  // public sortItmeList = ["Name","Duration","Rating","Price","Difficulty"];
+  @Input() public sortItmeList;
   
-  private sortBy = "name";
-  private searchStr = "";
-  private searchText$ = new Subject<string>();
-  private searchTimeOut;
+  public sortBy = "name";
+  public searchStr = "";
+  public searchText$ = new Subject<string>();
+  public searchTimeOut;
   @Output() public searchCriterionChangedEvent = new EventEmitter();
   ngOnInit() {
     // this.searchText$.pipe(

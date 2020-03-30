@@ -10,10 +10,10 @@ import { DialogRef } from 'src/app/dialog/dialog-ref';
 export class UserProfileDialogWrapperComponent implements OnInit {
 
   constructor(
-     private dialogConfig: DialogConfig,
-    private dialog: DialogRef) { }
+     public dialogConfig: DialogConfig,
+    public dialog: DialogRef) { }
 
-  private userDialogConfig
+  public userDialogConfig
 
   ngOnInit() {
     if(this.dialogConfig.data.userData){

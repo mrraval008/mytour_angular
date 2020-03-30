@@ -4,11 +4,12 @@ import { Router , ActivatedRoute ,ParamMap} from '@angular/router';
 import { MapComponent } from '../map/map.component'; 
 import { BookingService } from 'src/app/booking.service';
 import { ReviewService } from 'src/app/review.service';
-
-import { ToastrService } from 'ngx-toastr';
+import { HelperService } from 'src/app/helper.service';
 
 
 declare var Stripe: any;
+declare var toastr: any;
+
 
 
 
@@ -19,13 +20,13 @@ declare var Stripe: any;
 })
 export class TourDetailsComponent implements OnInit {
 
-  constructor(private tourService:TourService,private router: Router,private route:ActivatedRoute,private bookingService:BookingService,private reviewService:ReviewService,private toastr: ToastrService) { }
+  constructor(public tourService:TourService,public router: Router,public route:ActivatedRoute,public bookingService:BookingService,public reviewService:ReviewService,public helperService:HelperService) { }
 
-  private tourData = [];
-  private error = ""
-  private selectedTour;
-  private tourId = "";
-  private reviewData = []
+  public tourData = {imageCover:"",name:"",duration:"",startLocation:{description:""},startDate:"",difficulty:"",maxGroupSize:"",ratingsAverage:"",guides:[],description:"",images:[],_id:""};
+  public error = ""
+  public selectedTour;
+  public tourId = "";
+  public reviewData = []
 
   @ViewChild(MapComponent,null ) child: MapComponent
   
@@ -35,17 +36,11 @@ export class TourDetailsComponent implements OnInit {
     this.route.paramMap.subscribe((params:ParamMap)=>{
     this.tourId = params.get('id');
     this.getTour(this.tourId);
-
-    setTimeout(()=>{
-      this.showToaster();
-    },3000)
+    toastr.options = this.helperService.getToastOption();
+    
     // this.getReviews(this.tourId);
     })
   }
-
-  showToaster(){
-    this.toastr.success("Hello, I'm the toastr message.")
-}
 
   getTour(tourId){
     this.tourService.getTour(tourId).subscribe(response=>{
@@ -89,7 +84,7 @@ export class TourDetailsComponent implements OnInit {
     this.bookingService.createBooking(tourId,bookingData).subscribe((response)=>{
       if(response["status"] == "success"){
         console.log(response)
-          alert("Booking Success");
+        toastr.success('Booking Done Successfully');
           if(response.session){
             this.redirectToPayment(response.session)
           }

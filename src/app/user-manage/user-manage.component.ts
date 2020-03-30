@@ -8,11 +8,11 @@ import { UserService } from 'src/app/user.service';
 })
 export class UserManageComponent implements OnInit {
 
-  constructor( private userService: UserService) { }
+  constructor( public userService: UserService) { }
   public showLoader = true;
-  private userId;
-  private userModel = {};
-  private isAdmin = false;
+  public userId;
+  public userModel = {photo:"",name:""};
+  public isAdmin = false;
 
   ngOnInit() {
     this.getUserById();

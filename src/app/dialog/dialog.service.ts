@@ -20,9 +20,9 @@ export class DialogService {
   dialogComponentRef: ComponentRef<DialogComponent>
 
   constructor(
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private appRef: ApplicationRef,
-    private injector: Injector
+    public componentFactoryResolver: ComponentFactoryResolver,
+    public appRef: ApplicationRef,
+    public injector: Injector
   ) { }
 
   appendDialogComponentToBody(config: DialogConfig) {
@@ -58,7 +58,7 @@ export class DialogService {
     return dialogRef;
 
   }
-  private removeDialogComponentFromBody() {
+  public removeDialogComponentFromBody() {
     this.appRef.detachView(this.dialogComponentRef.hostView);
     this.dialogComponentRef.destroy();
   }

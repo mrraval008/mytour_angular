@@ -7,11 +7,11 @@ import { HelperService } from 'src/app/helper.service';
 })
 export class UserService {
 
-  constructor(private httpService:HttpService,private helperService:HelperService) { }
+  constructor(public httpService:HttpService,public helperService:HelperService) { }
 
-  private baseUrl = "/users";
-  private userData = [];
-  private currentUserId;
+  public baseUrl = "/users";
+  public userData = [];
+  public currentUserId;
 
 
   setUserId(userId){

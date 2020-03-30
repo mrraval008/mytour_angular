@@ -11,8 +11,8 @@ import { Router } from '@angular/router';
 @Injectable()
 export class AuthInterceptor implements HttpInterceptor {
 
-    constructor(private helperService: HelperService,private router: Router) {}
-    private mappedCode = {
+    constructor(public helperService: HelperService,public router: Router) {}
+    public mappedCode = {
         "code_1":"Yor are logged out,please log in to get access."
       }
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {

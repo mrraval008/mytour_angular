@@ -1,6 +1,6 @@
 <section class="booking_container">
     <div class="booking_card_container">
-        <div class="no_bookings" *ngIf="!bookings.length > 0">
+        <div class="no_bookings" *ngIf="bookings.length == 0">
             No Bookings
         </div>
         <div  *ngIf="bookings.length > 0">  

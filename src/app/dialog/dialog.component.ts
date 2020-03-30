@@ -29,14 +29,14 @@ import { DialogConfig } from 'src/app/dialog/dialog-config';
   styleUrls: ['./dialog.component.css'],
 })
 export class DialogComponent implements AfterViewInit, OnDestroy {
-  private readonly _onClose = new Subject<any>()
+  public readonly _onClose = new Subject<any>()
 
   public componentRef: ComponentRef<any>
   public childComponentType: Type<any>
   public onClose = this._onClose.asObservable()
   
 
-  private dialogTitle = ""
+  public dialogTitle = ""
 
   // add this:
   // @ViewChild(InsertionDirective, { static: true ,read: InsertionDirective}) 
@@ -48,7 +48,7 @@ export class DialogComponent implements AfterViewInit, OnDestroy {
 
   @ViewChild('vc', {static: true,read: ViewContainerRef}) vc: ViewContainerRef;
   // and this:
-  constructor(private componentFactoryResolver: ComponentFactoryResolver, private cd: ChangeDetectorRef,public dialog: DialogRef,public config: DialogConfig) { }
+  constructor(public componentFactoryResolver: ComponentFactoryResolver, public cd: ChangeDetectorRef,public dialog: DialogRef,public config: DialogConfig) { }
 
 
   onOverlayClicked(evt: MouseEvent) {

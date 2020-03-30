@@ -4,6 +4,9 @@ import { ReviewService } from 'src/app/review.service';
 import { DialogConfig } from 'src/app/dialog/dialog-config';
 import { DialogRef } from 'src/app/dialog/dialog-ref';
 
+declare var toastr: any;
+
+
 @Component({
   selector: 'app-review',
   templateUrl: './review.component.html',
@@ -11,14 +14,16 @@ import { DialogRef } from 'src/app/dialog/dialog-ref';
 })
 export class ReviewComponent implements OnInit {
 
-  constructor(private reviewService:ReviewService ,private helperService:HelperService,private config:DialogConfig,private dialog:DialogRef) { }
-  private rating = "5";
-  private comments = "";
-  private tourId = "";
+  constructor(public reviewService:ReviewService ,public helperService:HelperService,public config:DialogConfig,public dialog:DialogRef) { }
+  public rating = "5";
+  public comments = "";
+  public tourId = "";
   ngOnInit() {
     if(this.helperService.isValidObjectPath(this.config,"data.tourId")){
       this.tourId = this.config.data.tourId;
     }
+    toastr.options = this.helperService.getToastOption();
+    
   }
 
   submitReview(){
@@ -29,7 +34,7 @@ export class ReviewComponent implements OnInit {
             rating:+(this.rating)  // to convert in to number
           }
           this.reviewService.createReview(reviewObj).subscribe((response)=>{
-              alert("review submitted");
+              toastr.success('Review Submitted SuccessFully');
               this.dialog.close();
           },(error)=>{
             console.log(error)

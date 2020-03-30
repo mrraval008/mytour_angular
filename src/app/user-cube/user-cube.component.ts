@@ -10,14 +10,14 @@ import { UserProfileDialogWrapperComponent } from 'src/app/user-profile-dialog-w
 })
 export class UserCubeComponent implements OnInit {
 
-  constructor(public dialog: DialogService,private userService : UserService) {
+  constructor(public dialog: DialogService,public userService : UserService) {
   }
 
-  private defaultSearchCriterion = JSON.stringify({sortVal:"name"})
+  public defaultSearchCriterion = JSON.stringify({sortVal:"name"})
   public dialogRef;
-  private userList = "";
-  private showLoader = true;
-  private sortItmeList = ["Name","Role"]
+  public userList = "";
+  public showLoader = true;
+  public sortItmeList = ["Name","Role"]
   
 
   ngOnInit() {
@@ -51,6 +51,10 @@ export class UserCubeComponent implements OnInit {
 
   searchCriterionChanged(searchCriterion){
     this.getUserList(searchCriterion)
+  }
+
+  onDeleteClick(user){
+    
   }
 
   

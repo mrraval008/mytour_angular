@@ -6,9 +6,9 @@ import { HttpService } from 'src/app/http.service';
 })
 export class ReviewService {
 
-  constructor(private httpService:HttpService) { }
+  constructor(public httpService:HttpService) { }
 
-  private baseUrl = "/review"
+  public baseUrl = "/review"
 
   createReview(reviewData){
     // let url = `tours/${tourId}/bookings`;
