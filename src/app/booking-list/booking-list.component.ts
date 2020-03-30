@@ -13,11 +13,11 @@ import { Router } from '@angular/router';
 })
 export class BookingListComponent implements OnInit {
 
-  constructor(private bookingService:BookingService,private userService:UserService,private dialog: DialogService,private router: Router) { }
+  constructor(public bookingService:BookingService,public userService:UserService,public dialog: DialogService,public router: Router) { }
 
-  private showLoader =true;
-  private bookings;
-  private dialogRef;
+  public showLoader =true;
+  public bookings;
+  public dialogRef;
   
 
   ngOnInit() {

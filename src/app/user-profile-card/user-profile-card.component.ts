@@ -10,8 +10,8 @@ import { Router } from '@angular/router';
 })
 export class UserProfileCardComponent implements OnInit {
 
-  constructor(private userService:UserService,private helperService:HelperService,private router:Router) { }
-  private userData = {}
+  constructor(public userService:UserService,public helperService:HelperService,public router:Router) { }
+  public userData = {photo:"",name:"",role:""}
   
   ngOnInit() {
     this.userService.getMe().subscribe((response)=>{

@@ -8,8 +8,8 @@ import { Component, OnInit, Input, Output,EventEmitter } from '@angular/core';
 export class RatingComponent implements OnInit {
 
   constructor() { }
-  @Input() private isReadOnly = false;
-  @Input() private rating = "5";
+  @Input() public isReadOnly = false;
+  @Input() public rating = 5;
   @Output() public ratingSelectionChangedEvent = new EventEmitter();
   
   ngOnInit() {

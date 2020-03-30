@@ -11,11 +11,11 @@ import { Router } from '@angular/router';
 })
 export class HttpService {
 
-  constructor(private http: HttpClient,private helperService :HelperService,private router: Router) { }
-  private serverUrl ="http://127.0.0.1:3000/api/v1"
+  constructor(public http: HttpClient,public helperService :HelperService,public router: Router) { }
+  public serverUrl ="http://127.0.0.1:3000/api/v1"
   
 
-  private httpOptions = {
+  public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type':  'application/json',
       'AuthorizationToken': ""
@@ -108,7 +108,7 @@ export class HttpService {
 
 
 
-  // private handleError(error: HttpErrorResponse) {
+  // public handleError(error: HttpErrorResponse) {
     
   //   if (error.error instanceof ErrorEvent) {
   //     // A client-side or network error occurred. Handle it accordingly.

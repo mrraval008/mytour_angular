@@ -120,6 +120,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "tour-app"
+    }
+  },
+  "defaultProject": "tour-app",
+  "cli": {
+    "analytics": false
+  }
 }

@@ -3,7 +3,9 @@ import { TourService } from 'src/app/tour.service';
 import { Subject } from 'rxjs/internal/Subject';
 import { DialogService } from 'src/app/dialog/dialog.service';
 import { EditTourComponent } from 'src/app/edit-tour/edit-tour.component';
+import { HelperService } from 'src/app/helper.service';
 declare var Swiper: any;
+declare var toastr: any;
 
 
 @Component({
@@ -13,21 +15,20 @@ declare var Swiper: any;
 })
 export class TourCubeComponent implements OnInit,AfterViewInit {
 
-  constructor(private tourService: TourService,private dialog: DialogService) { }
+  constructor(public tourService: TourService,public dialog: DialogService,public helperService:HelperService) { }
 
-  private tourList = [];
-  private tourModel = {};
-  private error = "";
-  private dialogRef;
-  private defaultSearchCriterion = JSON.stringify({sortVal:"name"})
-  private sortItmeList = ["Name","Duration","Rating","Price","Difficulty"];
+  public tourList = [];
+  public tourModel = {};
+  public error = "";
+  public dialogRef;
+  public defaultSearchCriterion = JSON.stringify({sortVal:"name"})
+  public sortItmeList = ["Name","Duration","Rating","Price","Difficulty"];
   
-  private showLoader = true;
+  public showLoader = true;
 
   ngOnInit() {
     this.getTourList(this.defaultSearchCriterion);
-  
-
+    toastr.options = this.helperService.getToastOption();
   }
   ngAfterViewInit() {
     // this.initializeSwiper()
@@ -83,7 +84,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
     this.tourService.deleteTour(_tourId).subscribe(response => {
       this.showLoader = true;
       if (response["status"] == "success") {
-        alert("Tour Deleted");
+        toastr.success('Tour Deleted SuccessFully');
         let tourIndex = this.tourList.findIndex(elem=>elem.id == _tourId);
         this.tourList.splice(tourIndex,1);
       } else {
@@ -103,7 +104,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
         console.log('Dialog closed', result)
       })
     }
-  onCreateTour(tour){
+  onCreateTour(){
     this.dialogRef = this.dialog.open(EditTourComponent,{
       data: {dialogTitle:"Create Tour" }})
 

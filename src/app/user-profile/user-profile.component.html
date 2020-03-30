@@ -24,7 +24,9 @@
                 <button (click)="updateContactInfo()">save</button>
             </div>
             <div class="card_content">
-                <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile">
+                    <!-- <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile"> -->
+                            
+                <form #contactForm="ngForm" class="user_profile">
                     <div class="input_box">
                         <input type="text" required [readonly]="!isSelfUser" name="name" [(ngModel)]="userModel.name">
                         <span class="float_label">User Name</span>
@@ -47,7 +49,8 @@
                     <button (click)="updatePassword()">save</button>
                 </div>
                 <div class="card_content">
-                    <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile">
+                    <!-- <form #contactForm="ngForm" (ngSubmit)="onSubmit()" class="user_profile"> -->
+                    <form #contactForm="ngForm" class="user_profile">
                         <div class="input_box">
                             <input type="password" required name="password" [(ngModel)]="passwordModel.password">
                             <span class="float_label">Current Password</span>

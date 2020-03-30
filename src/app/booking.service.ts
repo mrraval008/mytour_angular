@@ -7,9 +7,9 @@ import { HelperService } from 'src/app/helper.service';
 })
 export class BookingService {
 
-  constructor(private httpService:HttpService,private helperService:HelperService) { }
+  constructor(public httpService:HttpService,public helperService:HelperService) { }
 
-  private baseUrl = "/bookings";
+  public baseUrl = "/bookings";
 
 
   // createBooking(tourId,bookingData){

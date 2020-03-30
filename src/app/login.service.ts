@@ -11,7 +11,7 @@ import { HttpService } from 'src/app/http.service';
 })
 export class LoginService {
 
-  constructor(private httpService: HttpService) { }
+  constructor(public httpService: HttpService) { }
 
   login(reqBody) {
     return this.httpService.login(reqBody);

@@ -12,9 +12,9 @@ import { HelperService } from 'src/app/helper.service';
 })
 export class TourService {
 
-  constructor(private httpService: HttpService,private helperService:HelperService) { }
+  constructor(public httpService: HttpService,public helperService:HelperService) { }
  
-  private baseUrl = "/tours";
+  public baseUrl = "/tours";
 
 
   getToursList(searchCriterion){

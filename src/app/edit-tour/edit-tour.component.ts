@@ -5,6 +5,8 @@ import { TourService } from 'src/app/tour.service';
 import { HelperService } from 'src/app/helper.service';
 import { UserService } from 'src/app/user.service';
 import {  FileUploader } from 'ng2-file-upload';
+import { DialogRef } from 'src/app/dialog/dialog-ref';
+declare var toastr: any;
 
 @Component({
   selector: 'app-edit-tour',
@@ -13,41 +15,43 @@ import {  FileUploader } from 'ng2-file-upload';
 })
 export class EditTourComponent implements OnInit {
 
-  constructor(public config: DialogConfig,private tourService:TourService,private helperService:HelperService,private userService:UserService) { }
+  constructor(public config: DialogConfig,public tourService:TourService,public helperService:HelperService,public userService:UserService,public dialog: DialogRef) { }
 
-  private tourModel = { locations: [],id:"",price:"" ,difficulty:false,startLocation:{},guides:[]};
-  private originalTourData = {};
-  private difficultyLevels = ["easy", "medium", "difficult"];
-  private difficultyLevelhasError = true;
-  private discountHasError = false;
+  // public tourModel = { locations: [],id:"",price:"" ,difficulty:false,startLocation:{},guides:[]};
+  public tourModel = {imageCover:"",name:"",duration:"",startLocation:{description:""},startDate:"",difficulty:false,maxGroupSize:"",ratingsAverage:"",guides:[],description:"",images:[],_id:"",location:"",locations:[],id:"",price:"",summary:"",priceDiscount:""};
+  
+  public originalTourData = {};
+  public difficultyLevels = ["easy", "medium", "difficult"];
+  public difficultyLevelhasError = true;
+  public discountHasError = false;
 
-  private locationRowData = [];
-  private locationColumnDefs = [
+  public locationRowData = [];
+  public locationColumnDefs = [
     { headerName: 'Day', field: 'day', editable: true },
     { headerName: 'Description', field: 'description', editable: true },
     { headerName: 'Longitude', field: 'longitude', editable: true },
     { headerName: 'Latitude', field: 'latitude', editable: true }
   ];
 
-  private guideRowData = [];
-  private guideColumnDefs = [
+  public guideRowData = [];
+  public guideColumnDefs = [
     { headerName: 'ID', field: '_id',checkboxSelection: true},
     { headerName: 'Name', field: 'name'},
     { headerName: 'Role', field: 'role'}
   ];
 
-  private startLocationRowData = []
-  private startLocationColumnDefs = [
+  public startLocationRowData = []
+  public startLocationColumnDefs = [
     { headerName: 'Description', field: 'description', editable: true },
     { headerName: 'Longitude', field: 'longitude', editable: true },
     { headerName: 'Latitude', field: 'latitude', editable: true },
     { headerName: 'Address', field: 'address', editable: true }
   ]
 
-  private rowSelection = "multiple";
+  public rowSelection = "multiple";
 
 
-  private authToken = this.helperService.getLocalStorageData("authToken");
+  public authToken = this.helperService.getLocalStorageData("authToken");
   public uploader:FileUploader = new FileUploader({autoUpload: true,allowedFileType: ['image'],headers: [{ name: 'authorization', value: 'Bearer '+this.authToken}],itemAlias: 'imageCover'});
   
   public imagesUploader:FileUploader = new FileUploader({autoUpload: true,allowedFileType: ['image'],headers: [{ name: 'authorization', value: 'Bearer '+this.authToken}],itemAlias: 'images'});
@@ -55,8 +59,8 @@ export class EditTourComponent implements OnInit {
   
 
 
-  private showLoader = false;
-  private isEditMode = false;
+  public showLoader = false;
+  public isEditMode = false;
 
   @ViewChild("locationGrid", { static: false }) locationGrid: AgGridAngular;
   @ViewChild("guideGrid", { static: false }) guideGrid: AgGridAngular;
@@ -86,9 +90,6 @@ export class EditTourComponent implements OnInit {
     this.getAllGuides()
     // this.guideRowData = this.tourModel.guides;
 
-  }else{
-    //add one row for start location
-    this.startlocationGrid.api.updateRowData({add: [{"day":"","address":"","longitude":"","latitude":""}]});
   }
 
   this.getAllGuides()
@@ -108,7 +109,14 @@ export class EditTourComponent implements OnInit {
     this.onAfterCompleteFile(item,response,status,headers)
   };
   
+  toastr.options = this.helperService.getToastOption();
   
+  }
+
+  ngAfterViewInit(){
+    if(!this.isEditMode){
+      this.startlocationGrid.api.updateRowData({add: [{"description":"","address":"","longitude":"","latitude":""}]});
+    }
   }
  
   onAfterAddingFile(file){
@@ -119,7 +127,8 @@ export class EditTourComponent implements OnInit {
 
   onAfterCompleteFile(item,response,status,headers){
     this.showLoader = false;
-    alert("Image Uploaded");
+    toastr.success('Image Uploaded SuccessFully');
+    this.dialog.close('some value')
     console.log("ImageUpload:uploaded:", item, status, response);
   }
 
@@ -253,7 +262,7 @@ register(){
 
 
   onSubmit(){
-    if(this.config.data){
+    if(this.isEditMode){
 
       let diffFields = this.helperService.getObjectDiffrences(this.tourModel,this.originalTourData);
       if(Object.entries(diffFields).length != 0){
@@ -261,8 +270,9 @@ register(){
         let tourId = this.tourModel.id;
         this.tourService.updateTour(tourId,diffFields).subscribe(response=>{
           this.showLoader = false
-          alert("Tour Updated");
-          // this.onDialogClose();
+          
+          toastr.success('Tour Updated SuccessFully')
+          this.dialog.close('some value')
         },
         error =>{
           this.showLoader = false;
@@ -272,17 +282,29 @@ register(){
     }else{
       this.showLoader = true;
       let obj = Object.assign({},this.tourModel);
-      obj["locations"] = this.getlocationRowData();
-      obj["guides"] = this.getGuideRowData();
-      obj["startLocation"] = this.getStartLocationRowData()[0];
+      let locations = this.getlocationRowData();
+      if(!this.helperService.isEmpty(locations)){
+        obj["locations"] = locations;
+      }
+      let guides = this.getGuideRowData();
+      if(!this.helperService.isEmpty(guides)){
+        obj["guides"] = guides
+      }
+      let startLocation = this.getStartLocationRowData()[0];
+      if(!this.helperService.isEmpty(startLocation.coordinates)){
+        obj["startLocation"] = startLocation
+      }else{
+        delete obj["startLocation"] 
+      }
       this.tourService.createTour(obj).subscribe(response=>{
         this.showLoader = false
-        alert("Tour created");
-        // this.onDialogClose();
+        toastr.success('Tour Created SuccessFully');
+        this.dialog.close('some value')
       },
       error =>{
         this.showLoader = false;
         console.log(error)
+        toastr.error(error.error.message)
       })
     }
     
