@@ -23,7 +23,10 @@ export class HttpService {
   };
 
 
-
+  isLoggedIn(){
+    let _url = this.serverUrl + "/users/isLoggedIn";
+    return this.http.get<any>(_url);
+  }
 
   login(reqBody){
     let _url = this.serverUrl + "/users/login";

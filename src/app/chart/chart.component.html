@@ -1,0 +1,11 @@
+<section class="chart_container">
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+<div class="year_select">
+        <span>Year : </span>
+        <select (change)="getChartData($event.target.value)">
+                <option [value]="year" *ngFor="let year of Years">{{year}}</option>
+        </select>
+</div>
+<div class="chart_div" #chartDiv>
+</div>
+</section>

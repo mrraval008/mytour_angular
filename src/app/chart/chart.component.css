@@ -1,0 +1,27 @@
+.chart_container{
+    display: flex;
+    height: 100%;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.chart_div{
+    width: 90%;
+    height:400px;
+    margin: 0 auto
+}
+.year_select{
+    margin-bottom: 4rem;
+}
+.year_select span{
+    font-size: 3rem;
+    color: white;
+    font-weight: bold;
+}
+.year_select select{
+    font-size: 3rem;
+}

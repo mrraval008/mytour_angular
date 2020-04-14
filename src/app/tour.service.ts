@@ -41,4 +41,19 @@ export class TourService {
   createTour(tourData){
     return this.httpService.create(this.baseUrl,tourData);
   }
+  getNearByTours(distance, lat , lng,unit){
+    let _baseUrl = `${this.baseUrl}/tours-within/${distance}/center/${lat},${lng}/unit/${unit}`;
+    return this.httpService.get(_baseUrl);
+  }
+  getTop5Tours(){
+    let _baseUrl = `${this.baseUrl}/top-5-tours`;
+    return this.httpService.get(_baseUrl);
+  }
+  getMonthlyPlan(year){
+    let _baseUrl = `${this.baseUrl}/month-plan/${year}`;
+    return this.httpService.get(_baseUrl);
+  }
 }
+
+    // https://stackoverflow.com/questions/7837731/units-to-use-for-maxdistance-and-mongodb
+

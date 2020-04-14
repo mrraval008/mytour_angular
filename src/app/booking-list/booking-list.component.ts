@@ -16,11 +16,12 @@ export class BookingListComponent implements OnInit {
   constructor(public bookingService:BookingService,public userService:UserService,public dialog: DialogService,public router: Router) { }
 
   public showLoader =true;
-  public bookings;
+  public bookings = [];
   public dialogRef;
   
 
   ngOnInit() {
+    this.showLoader = true;
     if(this.router.url.includes("my-bookings")){
       this.getMyBookings();
     }else{
@@ -30,8 +31,6 @@ export class BookingListComponent implements OnInit {
 
 
   getBookingList(){
-    // let userId = this.userService.getCurrentUserId();
-    // let filterVal = JSON.stringify({filterVal:[`user=${userId}`]});
     this.bookingService.getBookingList().subscribe(response=>{
       this.showLoader = false;
       console.log(response)

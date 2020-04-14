@@ -42,6 +42,7 @@ import { UserProfileComponent } from './user-profile/user-profile.component';
 import { ReviewComponent } from './review/review.component';
 import { RatingComponent } from './rating/rating.component';
 import { UserProfileDialogWrapperComponent } from './user-profile-dialog-wrapper/user-profile-dialog-wrapper.component';
+import { ChartComponent } from './chart/chart.component';
 
 
 @NgModule({
@@ -69,7 +70,8 @@ import { UserProfileDialogWrapperComponent } from './user-profile-dialog-wrapper
     UserProfileComponent,
     ReviewComponent,
     RatingComponent,
-    UserProfileDialogWrapperComponent
+    UserProfileDialogWrapperComponent,
+    ChartComponent
   ],
   imports: [
     BrowserModule,

@@ -11,31 +11,19 @@ export class UserManageComponent implements OnInit {
   constructor( public userService: UserService) { }
   public showLoader = true;
   public userId;
-  public userModel = {photo:"",name:""};
+  public userModel : any;
   public isAdmin = false;
 
   ngOnInit() {
-    this.getUserById();
+    this.getCurrentUser();
+
   }
 
-  getUserById(){
-      this.userService.getMe().subscribe((response) => {
-
-        if (response["status"] == "success") {
-          if (response.data) {
-            let _response = response.data;
-            if (_response.data) {
-              this.userModel = _response.data;
-              if(_response.data.role == "admin"){
-                this.isAdmin = true;
-              }
-            }
-          }
-        }
-        this.showLoader = false;
-      }, (error) => {
-        console.log(error);
-        this.showLoader = false;
-      })
+  getCurrentUser(){
+    this.userModel =this.userService.getCurrentUserData();
+      if(this.userModel.role == "admin"){
+        this.isAdmin = true;
+    }
+    this.showLoader = false;
   }
 }

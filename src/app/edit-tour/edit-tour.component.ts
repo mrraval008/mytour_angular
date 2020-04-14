@@ -18,7 +18,7 @@ export class EditTourComponent implements OnInit {
   constructor(public config: DialogConfig,public tourService:TourService,public helperService:HelperService,public userService:UserService,public dialog: DialogRef) { }
 
   // public tourModel = { locations: [],id:"",price:"" ,difficulty:false,startLocation:{},guides:[]};
-  public tourModel = {imageCover:"",name:"",duration:"",startLocation:{description:""},startDate:"",difficulty:false,maxGroupSize:"",ratingsAverage:"",guides:[],description:"",images:[],_id:"",location:"",locations:[],id:"",price:"",summary:"",priceDiscount:""};
+  public tourModel = {imageCover:"",name:"",duration:"",startLocation:{description:""},difficulty:false,maxGroupSize:"",ratingsAverage:4.5,guides:[],description:"",images:[""],location:"",locations:[],id:"",price:"",summary:"",priceDiscount:""};
   
   public originalTourData = {};
   public difficultyLevels = ["easy", "medium", "difficult"];
@@ -87,7 +87,7 @@ export class EditTourComponent implements OnInit {
     //Render ag-grid locationRowData
     this.locationRowData = this.tourModel.locations;
     this.startLocationRowData = [this.tourModel.startLocation];
-    this.getAllGuides()
+    // this.getAllGuides()
     // this.guideRowData = this.tourModel.guides;
 
   }
@@ -133,13 +133,16 @@ export class EditTourComponent implements OnInit {
   }
 
   getAllGuides(){
+    // let searchCriterion = {"filterVal":{'role':{'$in':['guide','lead-guide']}}} 
     let searchCriterion = {"filterVal":["role={'$in':['guide','lead-guide']}"]} 
+    
     this.userService.getUserList(JSON.stringify(searchCriterion)).subscribe(response=>{
-      this.showLoader = false
+      this.showLoader = false;
       if (response["status"] == "success") {
         if (response.data.data) {
           let guideList = response.data.data
           console.log(response)
+      
           let rowData = [];
           guideList.forEach(element => {
             rowData.push({"name":element.name,"role":element.role,"id":element._id})
@@ -149,8 +152,8 @@ export class EditTourComponent implements OnInit {
         }
       }
     },error=>{
-      this.showLoader = false
-        console.log(error)
+      this.showLoader = false;
+      toastr.success('Image Uploaded SuccessFully');
     });
   }
 
@@ -276,7 +279,8 @@ register(){
         },
         error =>{
           this.showLoader = false;
-          console.log(error)
+          console.log(error);
+          toastr.error(error.error.message)
         })
       }
     }else{
@@ -316,3 +320,6 @@ register(){
 
 // https://www.ag-grid.com/javascript-grid-data-update/#gsc.tab=0
 // https://www.ag-grid.com/javascript-grid-cell-editing/#gsc.tab=0
+// https://docs.mongodb.com/manual/tutorial/calculate-distances-using-spherical-geometry-with-2d-geospatial-indexes/
+// Valid longitude values are between -180 and 180, both inclusive.
+// Valid latitude values are between -90 and 90, both inclusive.

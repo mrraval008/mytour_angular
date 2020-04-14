@@ -7,13 +7,25 @@
         <div class="sort_box">
             <span>Sort By: </span>
             <select name="" id="" (change)="onSortByChange($event.target.value)">
-                <option [value]="sortItem | lowercase" *ngFor="let sortItem of sortItmeList">{{sortItem}}</option>
+                <option [value]="sortItem.value" *ngFor="let sortItem of sortItmeList | keyvalue">{{sortItem.key}}</option>
             </select>
-            <!-- <ul class="sort_list" (click)="">
-                <li *ngFor="let sortItem of sortItmeList" (click)="onSortClick(sortItem)">
-                    <span>sortItem</span>
-                </li>
-            </ul> -->
         </div>
+        <div class="filter_box" *ngIf="!hideFilters">
+            <span>Filter By: </span>
+            <select (change)="onFilterChange($event.target.value,'rating')">
+                <option [value]="rating" *ngFor="let rating of ratingList">{{rating}}</option>
+            </select>
+            <select (change)="onFilterChange($event.target.value,'price')">
+                <option [value]="price" *ngFor="let price of priceList">{{price}}</option>
+            </select>
+        </div>
+
+        <div class="filter_box" *ngIf="!hideFilters">
+            <button class="btn" (click)="showUserNearByTours()">Nearby Tours</button>
+        </div>
+        <div class="filter_box" *ngIf="!hideFilters">
+                <button class="btn" (click)="getTop5Tours()">Top 5 Tours</button>
+            </div>
+        
     </div>
 </section>

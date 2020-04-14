@@ -23,7 +23,9 @@ export class UserProfileComponent implements OnInit {
     public helperService: HelperService, 
     public router: Router,
   ) {}
-  public userModel = { email: "",password:"",updatedPassword:"" ,updatedPasswordConfirm:"",photo:"",name:"",role:""};
+  // public userModel = { email: "",password:"",updatedPassword:"" ,updatedPasswordConfirm:"",photo:"",name:"",role:""};
+  public userModel : any
+  
   @Input() public userDialogConfig;
   public userId;
   public showLoader = false;
@@ -67,21 +69,8 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUser(){
-      this.userService.getMe().subscribe((response) => {
-
-        if (response["status"] == "success") {
-          if (response.data) {
-            let _response = response.data;
-            if (_response.data) {
-              this.userModel = _response.data;
-            }
-          }
-        }
-        this.showLoader = false;
-      }, (error) => {
-        console.log(error);
-        this.showLoader = false;
-      })
+    this.userModel =this.userService.getCurrentUserData();
+    this.showLoader = false;
   }
 
   updateContactInfo() {

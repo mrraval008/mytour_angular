@@ -59,19 +59,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
   getTourList(searchCriterion){
     this.showLoader = true;
     this.tourService.getToursList(searchCriterion).subscribe(response => {
-      if (response["status"] == "success") {
-        this.showLoader = false;
-        if (response.data.data) {
-          let _tourList = response.data.data;
-          _tourList.forEach(element => {
-            element.startDate = element.startDates[0];
-          });
-          this.tourList = _tourList;
-          this.initializeSwiper();
-        }
-      } else {
-        this.error = response
-      }
+      this.onTourListResponse(response)
     }, error => {
       this.showLoader = false;
       this.error = error
@@ -79,10 +67,10 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
   }
 
   onDeleteTour(tour){
-    this.showLoader = false;
+    this.showLoader = true;
     let _tourId = tour.id;
     this.tourService.deleteTour(_tourId).subscribe(response => {
-      this.showLoader = true;
+      this.showLoader = false;
       if (response["status"] == "success") {
         toastr.success('Tour Deleted SuccessFully');
         let tourIndex = this.tourList.findIndex(elem=>elem.id == _tourId);
@@ -119,4 +107,41 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
     this.getTourList(searchCriterion);
   }
 
+  showUserNearByTours(locationData){
+    this.showLoader = true;
+    this.getNearByTours(locationData);
+  }
+  getNearByTours(locationData){
+    let {distance, lat , lng , unit} = locationData;
+    this.tourService.getNearByTours(distance, lat , lng, unit).subscribe(response => {
+      this.onTourListResponse(response)
+    }, error => {
+      this.showLoader = false;
+      toastr.error(error.error.message)
+    })
+  }
+  getTop5Tours(){
+    this.tourService.getTop5Tours().subscribe(response => {
+      this.onTourListResponse(response);
+    }, error => {
+      this.showLoader = false;
+      toastr.error(error.error.message)
+    })
+  }
+
+  onTourListResponse(response){
+    this.showLoader = false;
+    console.log(response)
+    if (response["status"] == "success") {
+      if (response.data) {
+        let _response = response.data;
+        if (_response.data) {
+          this.tourList = response.data.data;
+          this.initializeSwiper();
+        }
+      }
+    } else {
+      toastr.error(response.error.message)
+    }
+  }
 }

@@ -41,7 +41,7 @@
             <div class="input_box">
                 <select (blur)="validateDifficultyLevel(difficultyLevel.value)" (change)="validateDifficultyLevel(difficultyLevel.value)" required #difficultyLevel="ngModel"
                     [class.is-invalid]="difficultyLevelhasError && difficultyLevel.touched" name="difficultyLevel" [(ngModel)]="tourModel.difficulty">
-                    <option [selected]="tourModel.difficulty == false" value="default">Choose Difficluty Level</option>
+                    <option [selected]="!isEditMode" value="default">Choose Difficluty Level</option>
                     <option *ngFor="let difficultyLevel of difficultyLevels" [selected]="tourModel.difficulty == difficultyLevel" [value]="difficultyLevel">{{ difficultyLevel }}</option>
                 </select>
                 <span class="float_label" class="select_label">Difficulty Level</span>

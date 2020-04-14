@@ -4,18 +4,26 @@
 
 <section class="login_container">
     <div id="flipbook">
-        <div class="hard"> <h1>lets Register yourself</h1></div>
-        <div class="hard"></div>
+        <div class="hard">
+            <h1>lets Register yourself</h1>
+        </div>
+        <div class="quotes_section">
+            <div class="quotes_container">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <h2>The world is a book and those who do not travel read only a page.</h2>
+                <i class="fa fa-quote-right" aria-hidden="true"></i>
+            </div>
+        </div>
         <div class="login_section">
             <h2>Welcome Back</h2>
             <div class="form_container">
                 <form #loginForm="ngForm" (ngSubmit)="onLogin()">
                     <div class="floatContainer">
-                        <input class="floatInput" name="userEmail" type="text" required [(ngModel)]="loginModel.email">
+                        <input class="floatInput" name="userEmail" type="email" required [(ngModel)]="loginModel.email" email>
                         <span class="floatingPlaceHolder">Enter Email</span>
                     </div>
                     <div class="floatContainer">
-                        <input class="floatInput" name="userPassword" type="password" required [(ngModel)]="loginModel.password">
+                        <input class="floatInput" name="userPassword" type="password" required [(ngModel)]="loginModel.password" >
                         <span class="floatingPlaceHolder">Enter password</span>
                     </div>
                     <input type="submit" value="Sign In" [disabled]="loginForm.form.invalid">
@@ -29,7 +37,13 @@
                 <span (click)="openSignup()">Register</span>
             </div>
         </div>
-        <div> Page 2 </div>
+        <div class="quotes_section">
+            <div class="quotes_container">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <h2>Man cannot discover new oceans unless he has the courage to lose sight of the shore.</h2>
+                <i class="fa fa-quote-right" aria-hidden="true"></i>
+            </div>
+        </div>
         <div class="signUp_section">
             <h2>Welcome</h2>
             <div class="form_container">
@@ -39,7 +53,7 @@
                         <span class="floatingPlaceHolder">Enter Name</span>
                     </div>
                     <div class="floatContainer">
-                        <input class="floatInput" name="email" type="text" required [(ngModel)]="signUpModel.email" required>
+                        <input class="floatInput" name="email" type="email" required [(ngModel)]="signUpModel.email" required email>
                         <span class="floatingPlaceHolder">Enter Email</span>
                     </div>
                     <div class="floatContainer">
@@ -56,38 +70,64 @@
         </div>
 
 
-        <div> Page 4 </div>
+        <div class="quotes_section">
+            <div class="quotes_container">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <h2>Travel makes one modest, you see what a tiny place you occupy in the world.</h2>
+                <i class="fa fa-quote-right" aria-hidden="true"></i>
+            </div>
+        </div>
         <div class="login_section">
-                <h2>Forgot Password ? <br> Dont Worry</h2>
-                <div class="form_container">
-                    <form #ForgotPassworfForm="ngForm" (ngSubmit)="onForgotPassword()">
-                        <div class="floatContainer">
-                            <input class="floatInput" name="userEmail" type="text" required [(ngModel)]="userEmail">
-                            <span class="floatingPlaceHolder">Enter Email</span>
-                        </div>
-                        <input type="submit" value="Get My Password">
-                    </form>
+            <h2>Forgot Password ?
+                <br> Dont Worry</h2>
+            <div class="form_container">
+                <form #ForgotPassworfForm="ngForm" (ngSubmit)="onForgotPassword()">
+                    <div class="floatContainer">
+                        <input class="floatInput" name="userEmail" type="email" required [(ngModel)]="userEmail" email>
+                        <span class="floatingPlaceHolder">Enter Email</span>
+                    </div>
+                    <input type="submit" value="Get My Password" [disabled]="ForgotPassworfForm.form.invalid">
+                </form>
+            </div>
+        </div>
+        <div class="quotes_section" *ngIf="resetPasswordToken">
+            <div class="quotes_container">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <h2>Life is either a daring adventure or nothing at all</h2>
+                <i class="fa fa-quote-right" aria-hidden="true"></i>
+            </div>
+        </div>
+        <div class="login_section"  *ngIf="resetPasswordToken">
+            <h2>Reset your Password</h2>
+            <div class="form_container">
+                <form #ResetPassworForm="ngForm" (ngSubmit)="onResetPassword()">
+                    <div class="floatContainer">
+                        <input class="floatInput" name="password" required [(ngModel)]="resetPasswordModel.password" type="password" required>
+                        <span class="floatingPlaceHolder">Enter password</span>
+                    </div>
+                    <div class="floatContainer">
+                        <input class="floatInput" name="passwordConfirm" required [(ngModel)]="resetPasswordModel.passwordConfirm" type="password"
+                            required>
+                        <span class="floatingPlaceHolder">Confirm password</span>
+                    </div>
+                    <input type="submit" value="Reset My Password" [disabled]="ResetPassworForm.form.invalid">
+                </form>
+            </div>
+        </div>
+        <div class="quotes_section">
+                <div class="quotes_container">
+                    <i class="fa fa-quote-left" aria-hidden="true"></i>
+                    <h2>If you think adventure is dangerous, try routine, it's lethal</h2>
+                    <i class="fa fa-quote-right" aria-hidden="true"></i>
                 </div>
             </div>
-            <div> Page 5</div>
-            <div class="login_section">
-                    <h2>Reset your Password</h2>
-                    <div class="form_container">
-                        <form #ResetPassworForm="ngForm" (ngSubmit)="onResetPassword()">
-                                <div class="floatContainer">
-                                        <input class="floatInput" name="password" required [(ngModel)]="resetPasswordModel.password" type="password" required>
-                                        <span class="floatingPlaceHolder">Enter password</span>
-                                    </div>
-                                    <div class="floatContainer">
-                                        <input class="floatInput" name="passwordConfirm" required [(ngModel)]="resetPasswordModel.passwordConfirm" type="password" required>
-                                        <span class="floatingPlaceHolder">Confirm password</span>
-                                    </div>
-                            <input type="submit" value="Reset My Password">
-                        </form>
+            <div class="quotes_section">
+                    <div class="quotes_container last_page">
+                        <i class="fa fa-quote-left" aria-hidden="true"></i>
+                        <h2>We travel for romance, we travel for architecture, and we travel to be lost.</h2>
+                        <i class="fa fa-quote-right" aria-hidden="true"></i>
                     </div>
                 </div>
-        <div class="hard"></div>
-        <div class="hard"></div>
     </div>
 
 </section>

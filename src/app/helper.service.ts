@@ -33,6 +33,14 @@ export class HelperService {
       formattedURLArr.push(`sort=${searchCriterion.sortVal}`)
     }
     if(searchCriterion.filterVal && searchCriterion.filterVal != ""){
+      // let _filterVal  = JSON.stringify(searchCriterion.filterVal);
+      // let _filterVal  = searchCriterion.filterVal
+      
+      // _filterVal = `role={$in=['guide','lead-guide']}`
+      // searchCriterion.filterVal.forEach(element => {
+      //   _filterVal += element
+      // });
+      // formattedURLArr.push(_filterVal)
       let _filterVal  = "";
       searchCriterion.filterVal.forEach(element => {
         _filterVal += element
@@ -91,4 +99,10 @@ export class HelperService {
       closeEasing: 'swing'
     }
   }
+
+
+  getTourSortItemList(){
+    return {"Name":"name","Duration":"duration","Rating":"ratingsAverage","Price":"price","Difficulty":"difficulty"};
+  }
+
 }

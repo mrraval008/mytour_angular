@@ -1,9 +1,13 @@
+
+
 <section class="booking_container">
+        <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+        
     <div class="booking_card_container">
-        <div class="no_bookings" *ngIf="bookings.length == 0">
+        <div class="no_bookings" *ngIf="bookings.length == 0 && !showLoader">
             No Bookings
         </div>
-        <div  *ngIf="bookings.length > 0">  
+        <div  *ngIf="bookings.length > 0" class="booking_list">  
                 <div class="booking_card" *ngFor="let booking of bookings">
                         <div class="ribbon_container">
                             <h1 class="ribbon">

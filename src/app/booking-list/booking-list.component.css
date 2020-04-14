@@ -1,5 +1,6 @@
 .booking_container{
     min-height: 100vh;
+    height: 100%
 }
 
 .booking_card{
@@ -10,10 +11,18 @@
 }
 
 .booking_card_container{
-    display: flex;
+  margin-top: 4rem;
+    /* display: flex;
     margin-top: 4rem;
     flex-direction: column;
-    align-items: center;
+    align-items: center; */
+}
+
+.booking_list{
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  align-items: center;
 }
 
 
