@@ -10,25 +10,23 @@ import { Router } from '@angular/router';
 })
 export class UserProfileCardComponent implements OnInit {
 
-  constructor(public userService:UserService,public helperService:HelperService,public router:Router) { }
-  public userData = {photo:"",name:"",role:""}
-  
+  constructor(public userService: UserService, public helperService: HelperService, public router: Router) { }
+  public userData: any
+
   ngOnInit() {
-    this.userService.getMe().subscribe((response)=>{
-      if(response["status"] == "success"){
-        
-          if(response.data){
-            let _response = response.data;
-            if(_response.data){
-               this.userData = _response.data;
-            }
-          }
-      }
-    },(error)=>{
-      console.log(error)
-    })
+    this.userData = this.userService.getCurrentUserData();
+    let counter = 0
+    if (this.helperService.isEmpty(this.userData)) {
+      let timer = setInterval(() => {
+        counter++
+        if (!this.helperService.isEmpty(this.userService.getCurrentUserData()) || counter > 10) {
+          this.userData = this.userService.getCurrentUserData();
+          clearInterval(timer)
+        }
+      }, 500)
+    }
   }
-  onLogOut(){
+  onLogOut() {
     this.helperService.clearLocaleStorage();
     this.router.navigate(["/welcome/home"])
   }

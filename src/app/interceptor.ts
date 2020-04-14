@@ -20,7 +20,7 @@ export class AuthInterceptor implements HttpInterceptor {
         let authToken = this.helperService.getLocalStorageData("authToken");
         let authReq = req.clone();
         if(authToken){
-            authToken = 'Bearer '+authToken;
+            authToken = 'Bearer '+ authToken;
             authReq = req.clone({
                 headers: req.headers.set(
                     'authorization',
@@ -36,9 +36,9 @@ export class AuthInterceptor implements HttpInterceptor {
 	            console.log(" all looks good");
 	          }
 	        }, error => {
-                if(error.error && error.error.message == this.mappedCode["code_1"]){
-                  this.router.navigate(['/welcome/login']);
-                }
+                // if(error.error && error.error.message == this.mappedCode["code_1"]){
+                //   this.router.navigate(['/welcome/login']);
+                // }
 	   			// http response status code
 	          	console.log("----response----");
 	          	console.error("status code:");

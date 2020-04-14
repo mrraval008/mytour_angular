@@ -1,8 +1,8 @@
 
-<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
 
 <section class="cube_section">
-    <app-search-header  style="background: transparent" [sortItmeList]="sortItmeList" (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
+    <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+    <app-search-header  style="background: transparent" [sortItmeList]="sortItmeList" (searchCriterionChangedEvent)="searchCriterionChanged($event)" (showUserNearByToursEvent)="showUserNearByTours($event)" (getTop5ToursEvent)="getTop5Tours()"></app-search-header>
 
     <button class="create_button" (click)="onCreateTour()">Create Tour</button>
   
@@ -24,7 +24,7 @@
         <div class="imgBox">
           <img src="../../assets/img/tours/{{tour.images[1]}}" alt="../../assets/img/tours/{{tour.imageCover}}">
         </div>
-        <div class="content">{{tour.duration}} Days</div>
+        <div class="content">Rating {{tour.ratingsAverage}}</div>
       </div>
       <div class="swiper-slide">
         <div class="imgBox">
@@ -34,9 +34,9 @@
       </div>
       <div class="swiper-slide">
         <div class="imgBox">
-          <img src="../../assets/img/tours/{{tour.images[3]}" alt="../../assets/img/tours/{{tour.imageCover}}">
+          <img src="../../assets/img/tours/{{tour.imageCover}}" alt="../../assets/img/tours/{{tour.imageCover}}">
         </div>
-        <div class="content">The Snow Hiker1</div>
+        <div class="content">$ {{tour.price}}</div>
       </div>
     </div>
     <!-- Add Pagination -->

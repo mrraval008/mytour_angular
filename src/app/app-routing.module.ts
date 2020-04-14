@@ -11,6 +11,7 @@ import { TourCubeComponent } from 'src/app/tour-cube/tour-cube.component';
 import { UserCubeComponent } from 'src/app/user-cube/user-cube.component';
 import { BookingListComponent } from 'src/app/booking-list/booking-list.component';
 import { UserProfileComponent } from 'src/app/user-profile/user-profile.component';
+import { ChartComponent } from 'src/app/chart/chart.component';
 
 
 const routes: Routes = [
@@ -42,6 +43,9 @@ const routes: Routes = [
       },
       {
         path:"my-bookings",component:BookingListComponent
+      },
+      {
+        path:"monthly-plan",component:ChartComponent
       }
     ]
   },

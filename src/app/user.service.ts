@@ -10,22 +10,15 @@ export class UserService {
   constructor(public httpService:HttpService,public helperService:HelperService) { }
 
   public baseUrl = "/users";
-  public userData = [];
-  public currentUserId;
+  public currentUserData = {};
 
-
-  setUserId(userId){
-      this.helperService.updateLocalStorageData("userId",userId);
-      this.currentUserId = userId;
+  setCurrentUserData(data){
+    this.currentUserData = data;
   }
 
-  getCurrentUserId(){
-      if(!this.currentUserId){
-        this.currentUserId = this.helperService.getLocalStorageData("userId");
-      }
-      return this.currentUserId;
+  getCurrentUserData(){
+    return this.currentUserData;
   }
-
 
   getUserList(searchCriterion){
     let _baseUrl = this.baseUrl;

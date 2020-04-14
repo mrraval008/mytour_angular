@@ -4,6 +4,8 @@ import { LoginService } from 'src/app/login.service';
 import { HelperService } from 'src/app/helper.service';
 import { UserService } from 'src/app/user.service';
 declare var $: any;
+declare var toastr: any;
+
 @Component({
   selector: 'app-login-page',
   templateUrl: './login-page.component.html',
@@ -16,7 +18,6 @@ export class LoginPageComponent implements OnInit {
   public resetPasswordModel = {password:"",passwordConfirm:""};
   public resetPasswordToken = "";
 
-  public error;
   public userEmail;
 
   constructor(public router: Router, public route: ActivatedRoute, public loginService: LoginService, public helperService: HelperService, public userService: UserService) { }
@@ -40,7 +41,7 @@ export class LoginPageComponent implements OnInit {
       }
     }, 1500);
 
-   
+    toastr.options = this.helperService.getToastOption();
 
 
   }
@@ -60,15 +61,12 @@ export class LoginPageComponent implements OnInit {
       if (response["status"] == "success") {
         this.helperService.updateLocalStorageData("authToken", response.token);
         let data = response.data.user;
-        // this.helperService.updateLocalStorageData("userId",data._id)
-        this.userService.setUserId(data._id);
+        this.userService.setCurrentUserData(data);
         this.router.navigate(['/tourDetails']);
       } else {
-        // this.error = response
       }
-      // this.TourList = data
     }, error => {
-      this.error = error
+      toastr.error(error.error.message)
     })
   }
 
@@ -81,15 +79,11 @@ export class LoginPageComponent implements OnInit {
       if (response["status"] == "success") {
         this.helperService.updateLocalStorageData("authToken", response.token);
         let data = response.data.user;
-        // this.helperService.updateLocalStorageData("userId",data._id)
-        this.userService.setUserId(data._id);
         this.router.navigate(['/tourDetails']);
       } else {
-        // this.error = response
       }
-      // this.TourList = data
     }, error => {
-      this.error = error
+      toastr.error(error.error.message);
     })
   }
 
@@ -98,17 +92,11 @@ export class LoginPageComponent implements OnInit {
     this.loginService.forgotPassword({email:this.userEmail}).subscribe(response => {
       console.log(response)
       if (response["status"] == "success") {
-        // this.helperService.updateLocalStorageData("authToken", response.token);
-        // let data = response.data.user;
-        // // this.helperService.updateLocalStorageData("userId",data._id)
-        // this.userService.setUserId(data._id);
-        // this.router.navigate(['/tourDetails']);
+        toastr.success(response.message);
       } else {
-        // this.error = response
       }
-      // this.TourList = data
     }, error => {
-      this.error = error
+      toastr.error(error.error.message);
     })
   }
 
@@ -119,38 +107,12 @@ export class LoginPageComponent implements OnInit {
       this.loginService.resetPassword(reqBody,this.resetPasswordToken).subscribe(response => {
         console.log(response)
         if (response["status"] == "success") {
-          // this.helperService.updateLocalStorageData("authToken", response.token);
-          // let data = response.data.user;
-          // // this.helperService.updateLocalStorageData("userId",data._id)
-          // this.userService.setUserId(data._id);
-          // this.router.navigate(['/tourDetails']);
         } else {
-          // this.error = response
         }
-        // this.TourList = data
       }, error => {
-        this.error = error
+        toastr.error(error.error.message);
       })
     }
 
   }
 }
-
-
-// $("#pageFld").val($("#flipbook").turn("page"));
-
-  // $("#flipbook").bind("turned", function(event, page, view) {
-  //     $("#pageFld").val(page);
-  // });
-
-  // $("#pageFld").change(function() {
-  //     $("#flipbook").turn("page", $(this).val());
-  // });
-
-  // $("#prevBtn").click(function() {
-  //     $("#flipbook").turn("previous");
-  // });
-
-  // $("#nextBtn").click(function() {
-  //     $("#flipbook").turn("next");
-  // });

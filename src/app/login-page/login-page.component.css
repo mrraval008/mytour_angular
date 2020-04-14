@@ -2,8 +2,8 @@
 .login_container{
     display: flex;
     justify-content: center;
-    height: 100vh;
     background:url("../../assets/img/tours/background_1.png");
+    overflow: hidden;
 }
 .common{
     position: absolute;
@@ -16,6 +16,7 @@
     transition: all .5s ease-in
 }
 
+
 .signUp_section{
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/img/tours/tour-1-1.jpg");
     background-position: center;
@@ -26,6 +27,46 @@
     background-image: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), url("../../assets/img/tours/tour-1-1.jpg");
     background-position: center;
     background-size: cover;
+}
+
+/* .quotes_section{
+    display: flex;
+    align-items: center;
+    color: black;
+    font-style: italic;
+    background: rgb(189, 195, 199);
+} */
+
+.quotes_container{
+    padding: 3rem;
+    display: flex;
+    color:#34495e;
+    font-style: italic;
+    background: rgb(189, 195, 199);
+    flex-direction: column;
+    height: 100%;
+    font-family: monospace;
+    justify-content: center;
+}
+.quotes_container i {
+    font-size: 3rem;
+}
+
+.quotes_container .fa-quote-right {
+    margin-left: auto;
+}
+.quotes_container h2{
+    padding: 0;
+    margin: 0;
+    color: #34495e;
+    font-family: monospace;
+    font-size: 4.5em;
+    font-style: italic;
+    line-height: 1.4 !important;
+    margin: 0;
+    position: relative;
+    /* text-shadow: 0 1px white; */
+    z-index: 600;
 }
 
 .form_container{
@@ -69,13 +110,18 @@ input[type=submit] {
     cursor: pointer;
     transition: 0.2s ease;
 }
-input[type=submit]:hover{
+/* input:not(:disabled)[type=submit] :hover {
     transform: scale(1.1);
-} 
+}  */
 input[type=submit]:active{
     transform: translateY(5px)
-    
-} 
+}
+
+input[type="submit"]:disabled {
+    background-color: buttonface;
+    color: black;
+    opacity: 0.3;
+}
 
 .floatContainer {
     position: relative;
@@ -112,7 +158,6 @@ input:focus {
 #flipbook{
     width:800px;
     height:500px;
-    transform: skewX(5deg) !important;
     margin: 3rem 0 0 0;
     animation-delay: 2s;
     transition: 0.5s linear;
@@ -128,18 +173,21 @@ input:focus {
 }
 
 #flipbook .hard{
-    background:#ccc !important;
+    background:#95a5a6 !important;
     -webkit-box-shadow:inset 0 0 5px #666;
     -moz-box-shadow:inset 0 0 5px #666;
     -o-box-shadow:inset 0 0 5px #666;
     -ms-box-shadow:inset 0 0 5px #666;
     box-shadow:inset 0 0 5px #666;
+    color: #ecf0f1
 }
+
 #flipbook h1{
     font-size: 7rem;
     max-width: 100%;
     text-align: center;
     text-transform: uppercase;
+    font-style: italic
 }
 
 .register,.forgot_password{
@@ -172,29 +220,17 @@ input:focus {
       opacity: 0;
     }
     100% {
-      -webkit-transform: rotate(0) scale(1) skewX(5deg);
-              transform: rotate(0) scale(1) skewX(5deg);
+      -webkit-transform: rotate(0) scale(1) skewX(0);
+              transform: rotate(0) scale(1) skewX(0);
       opacity: 1;
     }
   }
-/* 
 
-.hard {
-	background-color: #00F;
+.last_page{
+      background: #34495e !important;
+      color: #ecf0f1
+  }
+
+.last_page h2{
+    color: #ecf0f1
 }
-
-.pg1 {
-	background-color: #FF0;
-}
-
-.pg2 {
-	background-color: #0FF;
-}
-
-.pg3 {
-	background-color: #F0F;
-}
-
-.pg4 {
-	background-color: #F00
-} */

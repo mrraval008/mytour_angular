@@ -1,7 +1,8 @@
-<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
-<app-search-header  style="background: transparent" [sortItmeList]="sortItmeList"  (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
 
 <section class="user_section">
+<app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+<app-search-header  style="background: transparent" [hideFilters]="true" [sortItmeList]="sortItmeList"  (searchCriterionChangedEvent)="searchCriterionChanged($event)"></app-search-header>
+
     <div class="card" *ngFor="let user of userList">
         <div class="front_box">
             <div class="img_box">

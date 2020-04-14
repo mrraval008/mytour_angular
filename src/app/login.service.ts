@@ -30,6 +30,10 @@ export class LoginService {
     
   }
 
+  isLoggedIn(){
+    return this.httpService.isLoggedIn();
+  }
+
 
 
 }
