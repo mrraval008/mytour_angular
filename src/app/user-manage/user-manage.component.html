@@ -11,11 +11,11 @@
                 <li routerLinkActive="active-link">
                     <a [routerLink]="['./my-profile']" data-text="Profile">Profile</a>
                 </li>
+                <li routerLinkActive="active-link" *ngIf="isAdmin">
+                        <a [routerLink]="['./tours']" data-text="Tours">Tours</a>
+                    </li>
                 <li  routerLinkActive="active-link" *ngIf="isAdmin">
                     <a [routerLink]="['./users']" data-text="Users">Users</a>
-                </li>
-                <li routerLinkActive="active-link" *ngIf="isAdmin">
-                    <a [routerLink]="['./tours']" data-text="Tours">Tours</a>
                 </li>
                 <li routerLinkActive="active-link" *ngIf="isAdmin">
                     <a [routerLink]="['./bookings']" data-text="All Bookings">All Bookings</a>

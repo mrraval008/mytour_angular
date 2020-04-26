@@ -70,8 +70,8 @@
             <div class="input_box text_area grid">
                     <div class="grid_header">
                             <span class="float_label grid_label">Locations</span>
-                            <button  type="button" (click)="removeRow()" class="btn">Remove Row</button>
-                            <button  type="button" (click)="AddRow()" class="btn">Add Row</button>
+                            <button  type="button" (click)="removeRow('locationGrid')" class="btn">Remove Row</button>
+                            <button  type="button" (click)="AddRow('locationGrid')" class="btn">Add Row</button>
                     </div>
                     <ag-grid-angular #locationGrid
                     class="ag-theme-balham"
@@ -85,7 +85,8 @@
                     <div class="grid_header">
                             <span class="float_label grid_label">Guides</span>
                     </div>
-                    <ag-grid-angular #guideGrid
+                    <!-- (selectionChanged)="onCellValueChanged($event)" -->
+                    <ag-grid-angular #guideGrid (selectionChanged)="onCellValueChanged($event)"
                     class="ag-theme-balham"
                     [rowData]="guideRowData"
                     [columnDefs]="guideColumnDefs"  [animateRows]="true"
@@ -105,7 +106,21 @@
                     >
                 </ag-grid-angular>
             </div>
-            <button class="btn" type="submit">Submit form</button>
+            <div class="input_box text_area grid">
+                <div class="grid_header">
+                    <span class="float_label grid_label">Start Dates</span>
+                    <button  type="button" (click)="removeRow('startDatesGrid')" class="btn">Remove Row</button>
+                    <button  type="button" (click)="AddRow('startDatesGrid')" class="btn">Add Row</button>
+            </div>
+                <ag-grid-angular #startDatesGrid
+                class="ag-theme-balham start_dates"
+                [rowData]="startDatesRowData"
+                [columnDefs]="startDatesColumnDefs"  [animateRows]="true"
+                [rowSelection]="rowSelection"  [components]="components"
+                >
+            </ag-grid-angular>
+        </div>
+            <button class="btn" type="submit">{{formButtonText}}</button>
             </form>
         </div>
     </div>

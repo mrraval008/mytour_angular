@@ -15,13 +15,15 @@ export class UserProfileCardComponent implements OnInit {
 
   ngOnInit() {
     this.userData = this.userService.getCurrentUserData();
-    let counter = 0
     if (this.helperService.isEmpty(this.userData)) {
+      let counter = 0;
+      let userData = {};
       let timer = setInterval(() => {
-        counter++
-        if (!this.helperService.isEmpty(this.userService.getCurrentUserData()) || counter > 10) {
-          this.userData = this.userService.getCurrentUserData();
+        counter++;
+        userData = this.userService.getCurrentUserData();
+        if (!this.helperService.isEmpty(userData) || counter > 10) {
           clearInterval(timer)
+          this.userData = userData;
         }
       }, 500)
     }

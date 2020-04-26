@@ -4,23 +4,38 @@
             <i class="fa fa-search" aria-hidden="true"></i>
             <input (keyup)="onSearch($event.target.value)" id="name" placeholder="Search"/>
         </div>
-        <div class="sort_box">
+        <div class="sort_box" (clickOutside)="onClickedOutside($event)">
             <span>Sort By: </span>
-            <select name="" id="" (change)="onSortByChange($event.target.value)">
+            <span (click)="showSortByMenu = true">{{selectedSortByText}}</span>
+            <ul class="list" (click)="onSortByChange($event.target)" *ngIf="showSortByMenu">
+                <li [attr.data-value]="sortItem.value" [class.selected]="selectedSortByText == sortItem.key" [attr.data-externalName]="sortItem.key" *ngFor="let sortItem of sortItmeList | keyvalue">{{sortItem.key}}</li>
+            </ul>
+            <!-- <select name="" id="" (change)="onSortByChange($event.target.value)">
                 <option [value]="sortItem.value" *ngFor="let sortItem of sortItmeList | keyvalue">{{sortItem.key}}</option>
-            </select>
+            </select> -->
         </div>
-        <div class="filter_box" *ngIf="!hideFilters">
+        <div class="filter_box" *ngIf="!hideFilters" (clickOutside)="onClickedFilterOutside($event)">
             <span>Filter By: </span>
-            <select (change)="onFilterChange($event.target.value,'rating')">
+            <!-- <select (change)="onFilterChange($event.target.value,'rating')">
                 <option [value]="rating" *ngFor="let rating of ratingList">{{rating}}</option>
             </select>
             <select (change)="onFilterChange($event.target.value,'price')">
                 <option [value]="price" *ngFor="let price of priceList">{{price}}</option>
-            </select>
+            </select> -->
+
+            <span (click)="showRatingFilter = true;showPriceFilter = false">{{selectedRatingFilterText}}</span>
+            <ul class="list" (click)="onFilterChange($event.target,'rating')" *ngIf="showRatingFilter">
+                <li [attr.data-value]="rating" [class.selected]="selectedRatingFilterText == rating" *ngFor="let rating of ratingList">{{rating}}</li>
+            </ul>
+
+            <span (click)="showPriceFilter = true;showRatingFilter = false">{{selectedPriceFilterText}}</span>
+            <ul class="list" (click)="onFilterChange($event.target,'price')" *ngIf="showPriceFilter">
+                <li [attr.data-value]="price" [class.selected]="selectedPriceFilterText == price" *ngFor="let price of priceList">{{price}}</li>
+            </ul>
+            
         </div>
 
-        <div class="filter_box" *ngIf="!hideFilters">
+        <div class="filter_box filter_btn" *ngIf="!hideFilters">
             <button class="btn" (click)="showUserNearByTours()">Nearby Tours</button>
         </div>
         <div class="filter_box" *ngIf="!hideFilters">

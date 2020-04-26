@@ -27,6 +27,7 @@ export class TourDetailsComponent implements OnInit {
   public selectedTour;
   public tourId = "";
   public reviewData = []
+  public showLoader = true;
 
   @ViewChild(MapComponent,null ) child: MapComponent
   
@@ -44,10 +45,10 @@ export class TourDetailsComponent implements OnInit {
 
   getTour(tourId){
     this.tourService.getTour(tourId).subscribe(response=>{
+      this.showLoader = false;
       if(response["status"] == "success"){
         console.log(response)
           if(response.data.data){
-            //need to optimized to get only required data
               let _tourData = response.data.data;
               this.reviewData = _tourData.reviews;
               _tourData.startDate = _tourData.startDates[0];
@@ -58,8 +59,8 @@ export class TourDetailsComponent implements OnInit {
       }else{
         this.error = response
       }
-      // this.TourList = data
     },error=>{
+      this.showLoader = false;
       this.error = error
     })
   }
@@ -80,14 +81,14 @@ export class TourDetailsComponent implements OnInit {
   //     })
   // }
   bookTour(tourId){
+    this.showLoader = true;
     let bookingData = {"bookingSatus":"In Progress","price":1200}
     this.bookingService.createBooking(tourId,bookingData).subscribe((response)=>{
       if(response["status"] == "success"){
         console.log(response)
-        toastr.success('Booking Done Successfully');
-          if(response.session){
-            this.redirectToPayment(response.session)
-          }
+        if(response.session){
+          this.redirectToPayment(response.session)
+        }
       }else{
         this.error = response
       }

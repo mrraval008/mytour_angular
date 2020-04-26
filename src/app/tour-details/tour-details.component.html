@@ -10,7 +10,8 @@
     </script> -->
 
 <section class="tour_detail_container">
-    <a [routerLink]="['/tourDetails']">Back</a>
+    <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+    <a class="back_btn btn" [routerLink]="['/tourDetails']">Back</a>
     <div class="detail_header">
         <div class="detail_picture">
                 <div class="card_picture_overlay"></div>
@@ -19,9 +20,9 @@
         <div class="detail_title">
             <span class="title">{{tourData.name}}</span>
             <div class="detail_title__text">
-                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <i class="fa fa-clock-o" aria-hidden="true"></i>                
                 <span>{{tourData.duration}} Days</span>
-                <i class="fa fa-calendar" aria-hidden="true"></i>
+                <i class="fa fa-map-marker" aria-hidden="true"></i>
                 <span>{{tourData.startLocation.description}}</span>
             </div>
         </div>
@@ -36,17 +37,17 @@
                     <span>{{tourData.startDate | date:'MMM yyyy'}}</span>
                 </div>
                 <div class="detail_factbox">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <i class="fa fa-signal" aria-hidden="true"></i>
                     <h2>DIFFICULTY</h2>
                     <span>{{tourData.difficulty}}</span>
                 </div>
                 <div class="detail_factbox">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <i class="fa fa-users" aria-hidden="true"></i>
                     <h2>PARTICIPANTS</h2>
                     <span>{{tourData.maxGroupSize}}</span>
                 </div>
                 <div class="detail_factbox">
-                    <i class="fa fa-calendar" aria-hidden="true"></i>
+                    <i class="fa fa-star-o" aria-hidden="true"></i>
                     <h2>RATING</h2>
                     <span>{{tourData.ratingsAverage}}/5</span>
                 </div>

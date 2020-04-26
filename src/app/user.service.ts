@@ -49,5 +49,9 @@ export class UserService {
     let _baseUrl = this.baseUrl + "/updateMypassword";
     return this.httpService.updatePassword(_baseUrl,userData)
   }
+
+  deleteUser(userId){
+    return this.httpService.deleteById(this.baseUrl,userId)
+  }
   
 }
