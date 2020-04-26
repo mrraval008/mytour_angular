@@ -44,6 +44,7 @@ import { RatingComponent } from './rating/rating.component';
 import { UserProfileDialogWrapperComponent } from './user-profile-dialog-wrapper/user-profile-dialog-wrapper.component';
 import { ChartComponent } from './chart/chart.component';
 
+import { ClickOutsideModule } from 'ng-click-outside';
 
 @NgModule({
   declarations: [
@@ -80,6 +81,7 @@ import { ChartComponent } from './chart/chart.component';
     FormsModule,
     FileUploadModule,
     AgGridModule.withComponents([]),
+    ClickOutsideModule
   ],
   entryComponents: [EditUserComponent,EditTourComponent,DialogComponent,ReviewComponent,UserProfileDialogWrapperComponent],
   providers: [

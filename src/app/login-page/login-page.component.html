@@ -3,6 +3,8 @@
 
 
 <section class="login_container">
+    <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
+
     <div id="flipbook">
         <div class="hard">
             <h1>lets Register yourself</h1>
@@ -23,7 +25,7 @@
                         <span class="floatingPlaceHolder">Enter Email</span>
                     </div>
                     <div class="floatContainer">
-                        <input class="floatInput" name="userPassword" type="password" required [(ngModel)]="loginModel.password" >
+                        <input class="floatInput" name="userPassword" type="password" required [(ngModel)]="loginModel.password">
                         <span class="floatingPlaceHolder">Enter password</span>
                     </div>
                     <input type="submit" value="Sign In" [disabled]="loginForm.form.invalid">
@@ -37,6 +39,8 @@
                 <span (click)="openSignup()">Register</span>
             </div>
         </div>
+
+
         <div class="quotes_section">
             <div class="quotes_container">
                 <i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -90,145 +94,38 @@
                 </form>
             </div>
         </div>
-        <div class="quotes_section" *ngIf="resetPasswordToken">
+
+
+        <div class="quotes_section">
             <div class="quotes_container">
                 <i class="fa fa-quote-left" aria-hidden="true"></i>
                 <h2>Life is either a daring adventure or nothing at all</h2>
                 <i class="fa fa-quote-right" aria-hidden="true"></i>
             </div>
         </div>
-        <div class="login_section"  *ngIf="resetPasswordToken">
-            <h2>Reset your Password</h2>
-            <div class="form_container">
-                <form #ResetPassworForm="ngForm" (ngSubmit)="onResetPassword()">
-                    <div class="floatContainer">
-                        <input class="floatInput" name="password" required [(ngModel)]="resetPasswordModel.password" type="password" required>
-                        <span class="floatingPlaceHolder">Enter password</span>
-                    </div>
-                    <div class="floatContainer">
-                        <input class="floatInput" name="passwordConfirm" required [(ngModel)]="resetPasswordModel.passwordConfirm" type="password"
-                            required>
-                        <span class="floatingPlaceHolder">Confirm password</span>
-                    </div>
-                    <input type="submit" value="Reset My Password" [disabled]="ResetPassworForm.form.invalid">
-                </form>
+        <div class="login_section">
+            <div class="quotes_container" *ngIf="!resetPasswordToken">
+                <i class="fa fa-quote-left" aria-hidden="true"></i>
+                <h2>If you think adventure is dangerous, try routine, it's lethal</h2>
+                <i class="fa fa-quote-right" aria-hidden="true"></i>
             </div>
-        </div>
-        <div class="quotes_section">
-                <div class="quotes_container">
-                    <i class="fa fa-quote-left" aria-hidden="true"></i>
-                    <h2>If you think adventure is dangerous, try routine, it's lethal</h2>
-                    <i class="fa fa-quote-right" aria-hidden="true"></i>
-                </div>
-            </div>
-            <div class="quotes_section">
-                    <div class="quotes_container last_page">
-                        <i class="fa fa-quote-left" aria-hidden="true"></i>
-                        <h2>We travel for romance, we travel for architecture, and we travel to be lost.</h2>
-                        <i class="fa fa-quote-right" aria-hidden="true"></i>
-                    </div>
-                </div>
-    </div>
-
-</section>
-
-
-<!-- 
-<input type="number" id="pageFld" min=1/>
-<button id="prevBtn">Previous</button>
-<button id="nextBtn">Next</button>
- -->
-
-
-
-
-
-
-
-<!-- <div id="loginBook">
-        <div class="hard"> Turn.js </div>
-        <div class="hard"></div>
-        <div> Page 1 </div>
-        <div> Page 2 </div>
-        <div> Page 3 </div>
-        <div> Page 4 </div>
-        <div class="hard"></div>
-        <div class="hard"></div>
-    </div> -->
-<!-- <section class="common login_container">
-                <div class="front">
-                        <form>
-                                <div class="input_box">
-                                    <span class="background"></span>
-                                    <input type="text" id="" required>
-                                    <span class="float_label">Enter Name</span>
-                                </div>
-                                <div class="input_box">
-                                    <span class="background"></span>
-                                    <input type="text" id="" required>
-                                    <span class="float_label">Enter Name</span>
-                                </div>
-                                <button class="btn login">Login</button>
-        
-                            </form>
+            <div *ngIf="resetPasswordToken">
+                <h2>Reset your Password</h2>
+                <div class="form_container">
+                    <form #ResetPassworForm="ngForm" (ngSubmit)="onResetPassword()">
+                        <div class="floatContainer">
+                            <input class="floatInput" name="password" required [(ngModel)]="resetPasswordModel.password" type="password" required>
+                            <span class="floatingPlaceHolder">Enter password</span>
                         </div>
-                        <div class="back">
-                            Back Of Login
+                        <div class="floatContainer">
+                            <input class="floatInput" name="passwordConfirm" required [(ngModel)]="resetPasswordModel.passwordConfirm" type="password"
+                                required>
+                            <span class="floatingPlaceHolder">Confirm password</span>
                         </div>
-        </section>
-       
-        <section class="common signup_container">
-                <div class="front">
-                        <form>
-                                <div class="input_box">
-                                    <span class="background"></span>
-                                    <input type="text" id="" required>
-                                    <span class="float_label">Enter Name</span>
-                                </div>
-                                <div class="input_box">
-                                    <span class="background"></span>
-                                    <input type="text" id="" required>
-                                    <span class="float_label">Enter Name</span>
-                                </div>
-                                <button class="btn login">Signup</button>
-        
-                            </form>
-                        </div>
-                        <div class="back">
-                            Back Of Signup
-                        </div>
-        </section>
-
-        <section class="common forgot_password_container">
-                <div class="front">
-                <form>
-                        <div class="input_box">
-                            <span class="background"></span>
-                            <input type="text" id="" required>
-                            <span class="float_label">Enter Name</span>
-                        </div>
-                        <div class="input_box">
-                            <span class="background"></span>
-                            <input type="text" id="" required>
-                            <span class="float_label">Enter Name</span>
-                        </div>
-                        <button class="btn login">Forgot password</button>
-
+                        <input type="submit" value="Reset My Password" [disabled]="ResetPassworForm.form.invalid">
                     </form>
                 </div>
-                <div class="back">
-                    Back Of Forgot Password
-                </div>
-        </section>
-        <section class="common intro_container">
-                    <div class="front intro_front">
-                        <h3>Register Your Self</h3>
-                    </div>
-                   <div class="back intro_back">
-                       <div class="quote_container">
-                            <i class="fa fa-quote-left" aria-hidden="true"></i>
-                            <p>Some Famouus quote abother </p>  
-                            <i class="fa fa-quote-right" aria-hidden="true"></i>                          
-                       </div>
-                    </div>
-        </section> -->
+            </div>
+        </div>
+    </div>
+</section>

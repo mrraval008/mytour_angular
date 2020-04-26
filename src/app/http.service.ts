@@ -70,7 +70,7 @@ export class HttpService {
 
   updateMe(url,data){
     let _url = this.serverUrl + url;
-    return this.http.patch<any>(_url,data,this.httpOptions);
+    return this.http.post<any>(_url,data,this.httpOptions);
   }
 
   deleteById(url,id){

@@ -1,0 +1,13 @@
+.about_section{
+    width: 80%;
+    margin: auto;
+    font-size: 1.5rem;
+    background: beige;
+    color: cadetblue;
+    font-weight: 700;
+}
+
+.about_container{
+    padding: 3rem;
+    margin: 2rem;
+}

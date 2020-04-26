@@ -30,30 +30,9 @@ export class TourListComponent implements OnInit {
   }
   getTourList(searchCriterion) {
     this.tourService.getToursList(searchCriterion).subscribe(response => {
-      console.log(response)
-      this.showLoader = false;
-      if (response["status"] == "success") {
-
-        if (response.data) {
-          let _response = response.data;
-          if (_response.data) {
-            // need to optimized to get only required data
-            let _tourList = response.data.data;
-            // _tourList.forEach(element => {
-              // element.startDate = element.startDates[0];
-              // element.image = element.images[0]
-            // });
-            // console.log(_tourList)
-            this.tourList = _tourList;
-          }
-        }
-      } else {
-
-        this.error = response
-      }
+      this.onTourListResponse(response);
     }, error => {
       this.showLoader = false;
-      
       this.error = error;
       toastr.error(error.error.message)
     })
@@ -69,24 +48,37 @@ export class TourListComponent implements OnInit {
     this.getNearByTours(locationData);
   }
   getNearByTours(locationData){
-    console.log(locationData)
     let {distance, lat , lng , unit} = locationData;
     this.tourService.getNearByTours(distance, lat , lng, unit).subscribe(response => {
-      this.showLoader = false;
-      if (response["status"] == "success") {
-        if (response.data) {
-          let _response = response.data;
-          if (_response.data) {
-            this.tourList = response.data.data;
-          }
-        }
-      } else {
-        toastr.error(response.error.message)
-      }
+      this.onTourListResponse(response)
     }, error => {
       this.showLoader = false;
       toastr.error(error.error.message)
     })
+  }
+
+
+  getTop5Tours(){
+    this.tourService.getTop5Tours().subscribe(response => {
+      this.onTourListResponse(response);
+    }, error => {
+      this.showLoader = false;
+      toastr.error(error.error.message)
+    })
+  }
+
+  onTourListResponse(response){
+    this.showLoader = false;
+    if (response["status"] == "success") {
+      if (response.data) {
+        let _response = response.data;
+        if (_response.data) {
+          this.tourList = response.data.data;
+        }
+      }
+    } else {
+      toastr.error(response.error.message)
+    }
   }
 
 }

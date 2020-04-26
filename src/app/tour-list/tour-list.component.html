@@ -2,7 +2,7 @@
     <app-user-profile-card></app-user-profile-card>
 
     <app-loading-spinner [showLoader]="showLoader"></app-loading-spinner>
-    <app-search-header (searchCriterionChangedEvent)="searchCriterionChanged($event)" [sortItmeList]="sortItmeList" (showUserNearByToursEvent)="showUserNearByTours($event)" ></app-search-header>
+    <app-search-header (searchCriterionChangedEvent)="searchCriterionChanged($event)" [sortItmeList]="sortItmeList" (showUserNearByToursEvent)="showUserNearByTours($event)" (getTop5ToursEvent)="getTop5Tours()"></app-search-header>
     <div class="card" *ngFor="let tour of tourList">
         <div class="card_header">
             <div class="card_picture">

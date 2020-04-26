@@ -7,6 +7,8 @@ import { UserService } from 'src/app/user.service';
 import {  FileUploader } from 'ng2-file-upload';
 import { DialogRef } from 'src/app/dialog/dialog-ref';
 declare var toastr: any;
+declare var $: any;
+
 
 @Component({
   selector: 'app-edit-tour',
@@ -18,7 +20,9 @@ export class EditTourComponent implements OnInit {
   constructor(public config: DialogConfig,public tourService:TourService,public helperService:HelperService,public userService:UserService,public dialog: DialogRef) { }
 
   // public tourModel = { locations: [],id:"",price:"" ,difficulty:false,startLocation:{},guides:[]};
-  public tourModel = {imageCover:"",name:"",duration:"",startLocation:{description:""},difficulty:false,maxGroupSize:"",ratingsAverage:4.5,guides:[],description:"",images:[""],location:"",locations:[],id:"",price:"",summary:"",priceDiscount:""};
+  public tourModel = {imageCover:"",name:"",duration:"",startLocation:{description:""},difficulty:false,maxGroupSize:"",ratingsAverage:4.5,guides:[],description:"",images:[""],location:"",locations:[],id:"",price:"",summary:"",priceDiscount:"",startDates:[]};
+  // public tourModel :any
+
   
   public originalTourData = {};
   public difficultyLevels = ["easy", "medium", "difficult"];
@@ -35,7 +39,7 @@ export class EditTourComponent implements OnInit {
 
   public guideRowData = [];
   public guideColumnDefs = [
-    { headerName: 'ID', field: '_id',checkboxSelection: true},
+    { headerName: 'ID', field: 'id',checkboxSelection: true},
     { headerName: 'Name', field: 'name'},
     { headerName: 'Role', field: 'role'}
   ];
@@ -46,6 +50,11 @@ export class EditTourComponent implements OnInit {
     { headerName: 'Longitude', field: 'longitude', editable: true },
     { headerName: 'Latitude', field: 'latitude', editable: true },
     { headerName: 'Address', field: 'address', editable: true }
+  ]
+
+  public startDatesRowData = []
+  public startDatesColumnDefs = [
+    { headerName: 'Start Dates', field: 'startDates', editable: true, cellEditor: 'datePicker' },
   ]
 
   public rowSelection = "multiple";
@@ -62,34 +71,41 @@ export class EditTourComponent implements OnInit {
   public showLoader = false;
   public isEditMode = false;
 
+  public formButtonText  = "Create Tour"
+
+  private components : any;
+
   @ViewChild("locationGrid", { static: false }) locationGrid: AgGridAngular;
   @ViewChild("guideGrid", { static: false }) guideGrid: AgGridAngular;
   @ViewChild("startlocationGrid", { static: false }) startlocationGrid: AgGridAngular;  
+  @ViewChild("startDatesGrid", { static: false }) startDatesGrid: AgGridAngular;  
   
 
   ngOnInit() {
+    this.components = { datePicker: this.getDatePicker() };
+  
     //get tour data from config in case of edit
     if(this.config.data && this.config.data.tourData){
     this.tourModel = this.config.data.tourData;
     console.log(this.tourModel)
     this.isEditMode = true;
+    this.formButtonText = "Update Tour"
 
 
-    //set original data for comparision
-    this.originalTourData = Object.assign({},this.tourModel);
 
     console.log(this.tourModel);
 
     //format location data to display in ag-grid
     this.formatLocationDataToDisplay()
     this.formatStartLocationDataToDisplay();
-
+    this.formatStartDatesDataToDisplay()
     //Render ag-grid locationRowData
     this.locationRowData = this.tourModel.locations;
     this.startLocationRowData = [this.tourModel.startLocation];
-    // this.getAllGuides()
-    // this.guideRowData = this.tourModel.guides;
+    this.startDatesRowData = this.tourModel.startDates;
 
+    //set original data for comparision
+    this.originalTourData = this.helperService.cloneObject(this.tourModel);
   }
 
   this.getAllGuides()
@@ -134,15 +150,13 @@ export class EditTourComponent implements OnInit {
 
   getAllGuides(){
     // let searchCriterion = {"filterVal":{'role':{'$in':['guide','lead-guide']}}} 
-    let searchCriterion = {"filterVal":["role={'$in':['guide','lead-guide']}"]} 
+    let searchCriterion = {'filterVal': {role:'role={"$in":["guide","lead-guide"]}'}} 
     
     this.userService.getUserList(JSON.stringify(searchCriterion)).subscribe(response=>{
       this.showLoader = false;
       if (response["status"] == "success") {
         if (response.data.data) {
           let guideList = response.data.data
-          console.log(response)
-      
           let rowData = [];
           guideList.forEach(element => {
             rowData.push({"name":element.name,"role":element.role,"id":element._id})
@@ -153,7 +167,7 @@ export class EditTourComponent implements OnInit {
       }
     },error=>{
       this.showLoader = false;
-      toastr.success('Image Uploaded SuccessFully');
+      toastr.success(error.error.message);
     });
   }
 
@@ -173,14 +187,46 @@ export class EditTourComponent implements OnInit {
     }
   }
 
+  formatStartDatesDataToDisplay() {
+    if (this.tourModel.startDates && !this.helperService.isEmpty(this.tourModel.startDates)) {
 
-
-  AddRow(){
-    this.locationGrid.api.updateRowData({add: [{"description":"","day":"","longitude":"","latitude":""}]});
+      this.tourModel.startDates = this.tourModel.startDates.map(element => {
+        let date = new Date(element);
+        
+        let year :any = date.getFullYear();
+        let month :any = date.getMonth()+1;
+        let dt :any = date.getDate();
+        
+        if (dt < 10) {
+          dt = '0' + dt;
+        }
+        if (month < 10) {
+          month = '0' + month;
+        }
+        
+        return {"startDates":year+'-' + month + '-'+dt};
+      });
+    }
   }
-  removeRow(){
-    let selectedData = this.locationGrid.api.getSelectedRows();
-    this.locationGrid.api.updateRowData({remove: selectedData});
+
+
+
+  AddRow(selectedGrid){
+    if(selectedGrid == 'locationGrid'){
+      this.locationGrid.api.updateRowData({add: [{"description":"","day":"","longitude":"","latitude":""}]});
+    }else if(selectedGrid == 'startDatesGrid'){
+      this.startDatesGrid.api.updateRowData({add: [{"startDates":""}]});
+    }
+  }
+  removeRow(selectedGrid){
+    if(selectedGrid == 'locationGrid'){
+      let selectedData = this.locationGrid.api.getSelectedRows();
+      this.locationGrid.api.updateRowData({remove: selectedData});
+    }else if(selectedGrid == 'startDatesGrid'){
+      let selectedData = this.startDatesGrid.api.getSelectedRows();
+      this.startDatesGrid.api.updateRowData({remove: selectedData});
+    }
+   
   }
 
   getlocationRowData() {
@@ -188,11 +234,7 @@ export class EditTourComponent implements OnInit {
     this.locationGrid.api.forEachNode( function(node) {
         rowData.push(node.data);
     });
-    if(this.isEditMode){
-      
-    }else{
-      return this.getLocationFormatedData(rowData);
-    }
+    return this.getLocationFormatedData(rowData);
   }
 
   getStartLocationRowData() {
@@ -207,6 +249,16 @@ export class EditTourComponent implements OnInit {
     let selectedNode = this.guideGrid.api.getSelectedNodes();
     let guideRowData = selectedNode.map(element => element.data.id);
     return guideRowData;
+  }
+
+  getStartDatesRowData(){
+    let rowData = [];
+    this.startDatesGrid.api.forEachNode( function(node) {
+      let date = new Date(node.data.startDates);
+      let isoDate = new Date(date.getTime() - (date.getTimezoneOffset() * 60000)).toISOString();
+      rowData.push(isoDate);
+    });
+    return rowData
   }
 
   onGuideGridReady(event){
@@ -224,14 +276,15 @@ export class EditTourComponent implements OnInit {
   }
 
   getLocationFormatedData(rowData){
-    let formattedRowData = rowData.map(element => {
+    let _rowData =  this.helperService.cloneObject(rowData);
+    let formattedRowData = _rowData.map(element => {
       element["coordinates"] = [element.longitude,element.latitude];
       element["type"] = "Point";
       delete element.latitude;
       delete element.longitude;
       return element;
     });
-    return formattedRowData 
+    return formattedRowData;
   }
 
   getStartLocationFormatedData(rowData){
@@ -242,16 +295,8 @@ export class EditTourComponent implements OnInit {
       delete element.longitude;
       return element;
     });
-    return formattedRowData 
+    return formattedRowData; 
   }
-
-
-
-register(){
-  console.log("locationGrid");
-  
-}
-
 
   validateDifficultyLevel(value) {
     console.log(this.locationGrid);
@@ -262,13 +307,81 @@ register(){
   }
 
 
+  getDatePicker() {
+    function Datepicker() {}
+    Datepicker.prototype.init = function(params) {
+      this.eInput = document.createElement('input');
+      this.eInput.value = params.value;
+      this.eInput.type = "date";
+    };
+    Datepicker.prototype.getGui = function() {
+      return this.eInput;
+    };
+    Datepicker.prototype.afterGuiAttached = function() {
+      this.eInput.focus();
+      this.eInput.select();
+    };
+    Datepicker.prototype.getValue = function() {
+      return this.eInput.value;
+    };
+    Datepicker.prototype.destroy = function() {};
+    Datepicker.prototype.isPopup = function() {
+      return false;
+    };
+    return Datepicker;
+  }
 
+
+  onCellValueChanged(event){
+      let selectedRowData = event.api.getSelectedRows()
+  }
 
   onSubmit(){
     if(this.isEditMode){
+      let diffFields : any = this.helperService.getObjectDiffrences(this.tourModel,this.originalTourData);
+      let locations = this.getlocationRowData();
+      if(!this.helperService.isEmpty(locations)){
+        diffFields["locations"] = locations;
+      }else{
+        toastr.error(`Locations can not be empty`)
+        return;
+      }
+      let guides = this.getGuideRowData();
+      if(!this.helperService.isEmpty(guides)){
+        diffFields["guides"] = guides;
+      }else{
+        toastr.error(`Guides can not be empty`)
+        return;
+      }
+      
 
-      let diffFields = this.helperService.getObjectDiffrences(this.tourModel,this.originalTourData);
+      let startLocation = this.getStartLocationRowData()[0];
+      if(!this.helperService.isEmpty(startLocation.coordinates)){
+        diffFields["startLocation"] = startLocation;
+      }else{
+        toastr.error(`Start Locations can not be empty`)
+        return;
+      }
+      let startDates = this.getStartDatesRowData();
+      if(!this.helperService.isEmpty(startDates)){
+        diffFields["startDates"] = startDates;
+      }else{
+        toastr.error(`Start Dates can not be empty`);
+        return;
+      }
+
       if(Object.entries(diffFields).length != 0){
+        if(diffFields.hasOwnProperty("locations")){
+          diffFields["locations"] = this.getlocationRowData();
+        }
+     
+        if(diffFields.hasOwnProperty("startLocation")){
+          diffFields["startLocation"] = this.getStartLocationRowData()[0];
+        }
+        if(Object.keys(diffFields).includes("priceDiscount") && diffFields.priceDiscount > this.tourModel.price){
+          toastr.error(`Discount price ${diffFields.priceDiscount} should be below regular price`)
+          return;
+        }
         this.showLoader = true;
         let tourId = this.tourModel.id;
         this.tourService.updateTour(tourId,diffFields).subscribe(response=>{
@@ -282,32 +395,39 @@ register(){
           console.log(error);
           toastr.error(error.error.message)
         })
+      }else{
+        toastr.info("No changes to save")
       }
     }else{
       this.showLoader = true;
-      let obj = Object.assign({},this.tourModel);
+      let obj = this.helperService.cloneObject(this.tourModel);
       let locations = this.getlocationRowData();
       if(!this.helperService.isEmpty(locations)){
         obj["locations"] = locations;
       }
       let guides = this.getGuideRowData();
       if(!this.helperService.isEmpty(guides)){
-        obj["guides"] = guides
+        obj["guides"] = guides;
       }
       let startLocation = this.getStartLocationRowData()[0];
       if(!this.helperService.isEmpty(startLocation.coordinates)){
-        obj["startLocation"] = startLocation
+        obj["startLocation"] = startLocation;
       }else{
-        delete obj["startLocation"] 
+        delete obj["startLocation"];
+      }
+      let startDates = this.getStartDatesRowData();
+      if(!this.helperService.isEmpty(startDates)){
+        let startDate = this.helperService.cloneObject(startDates);
+        obj["startDates"] = startDate.map(elem => elem.startDates)
       }
       this.tourService.createTour(obj).subscribe(response=>{
-        this.showLoader = false
+        this.showLoader = false;
         toastr.success('Tour Created SuccessFully');
-        this.dialog.close('some value')
+        this.dialog.close('some value');
       },
       error =>{
         this.showLoader = false;
-        console.log(error)
+        console.log(error);
         toastr.error(error.error.message)
       })
     }
@@ -315,6 +435,8 @@ register(){
 
 
   }
+
+  
 }
 
 

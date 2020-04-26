@@ -22,7 +22,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
   public error = "";
   public dialogRef;
   public defaultSearchCriterion = JSON.stringify({sortVal:"name"})
-  public sortItmeList = ["Name","Duration","Rating","Price","Difficulty"];
+  public sortItmeList = this.helperService.getTourSortItemList()
   
   public showLoader = true;
 
@@ -62,7 +62,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
       this.onTourListResponse(response)
     }, error => {
       this.showLoader = false;
-      this.error = error
+      toastr.error(error.error.message)
     })
   }
 
@@ -80,7 +80,7 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
       }
     }, error => {
       this.showLoader = false;
-      this.error = error
+      toastr.error(error.error.message)
     })
   }
 

@@ -69,7 +69,21 @@ export class UserProfileComponent implements OnInit {
   }
 
   getUser(){
-    this.userModel =this.userService.getCurrentUserData();
+    this.userModel = this.userService.getCurrentUserData();
+    if (this.helperService.isEmpty(this.userModel)) {
+      if (this.helperService.isEmpty(this.userModel)) {
+        let counter = 0;
+        let userData = {};
+        let timer = setInterval(() => {
+          counter++;
+          userData = this.userService.getCurrentUserData();
+          if (!this.helperService.isEmpty(userData) || counter > 10) {
+            clearInterval(timer)
+            this.userModel = userData;
+          }
+        }, 500)
+      }
+    }
     this.showLoader = false;
   }
 
@@ -84,25 +98,29 @@ export class UserProfileComponent implements OnInit {
   }
 
   updateMe(){
-    this.userService.updateMe(this.userModel).subscribe((response) => {
+    let obj = {name:this.userModel.name,email:this.userModel.email}
+    this.userService.updateMe(obj).subscribe((response) => {
       if (response["status"] == "success") {
         toastr.success('User Updated Successfully');
         this.showLoader = false;
       }
     }, (error) => {
+      toastr.error(error.error.message);
       console.log(error);
       this.showLoader = false;
     })
   }
 
   updateUser() {
-    this.userService.updateUser(this.userId,this.userModel).subscribe((response) => {
+    let obj = {role:this.userModel.role}
+    this.userService.updateUser(this.userId,obj).subscribe((response) => {
       if (response["status"] == "success") {
         toastr.success('User Updated Successfully');
         this.showLoader = false;
       }
     }, (error) => {
       console.log(error);
+      toastr.error(error.error.message);
       this.showLoader = false;
     })
   }
@@ -112,13 +130,14 @@ export class UserProfileComponent implements OnInit {
     this.passwordModel["email"] = this.userModel.email;
     this.userService.updatePassword(this.passwordModel).subscribe((response) => {
       if (response["status"] == "success") {
-        toastr.success('Password Updated Successfully');
+        toastr.success('Password Updated Successfully,Please re login');
         this.helperService.clearLocaleStorage();
         this.router.navigate(['/welcome/login']);
         this.showLoader = false;
       }
     }, (error) => {
-      console.log(error);
+      toastr.error(error.error.message);
+      console.log(error.error.message);
       this.showLoader = false;
     })
   }

@@ -22,10 +22,10 @@ export class AuthInterceptor implements HttpInterceptor {
         if(authToken){
             authToken = 'Bearer '+ authToken;
             authReq = req.clone({
-                headers: req.headers.set(
-                    'authorization',
-                    authToken
-                )
+                setHeaders:{
+                    'authorization':authToken,
+                    'Cache-Control': 'no-cache',
+                }
             });
         }
 
