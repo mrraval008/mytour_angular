@@ -4,6 +4,7 @@ import { Subject } from 'rxjs/internal/Subject';
 import { DialogService } from 'src/app/dialog/dialog.service';
 import { EditTourComponent } from 'src/app/edit-tour/edit-tour.component';
 import { HelperService } from 'src/app/helper.service';
+import { print } from 'util';
 declare var Swiper: any;
 declare var toastr: any;
 
@@ -25,18 +26,19 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
   public sortItmeList = this.helperService.getTourSortItemList()
   
   public showLoader = true;
+  private swiper :any
+  private frontSideCode  = 0
 
   ngOnInit() {
     this.getTourList(this.defaultSearchCriterion);
     toastr.options = this.helperService.getToastOption();
   }
   ngAfterViewInit() {
-    // this.initializeSwiper()
   }
 
   initializeSwiper(){
     setTimeout(()=>{
-      var swiper = new Swiper('.swiper-container', {
+      this.swiper = new Swiper('.swiper-container', {
         effect: 'cube',
         grabCursor: true,
         cubeEffect: {
@@ -50,9 +52,9 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
           clickable: true,
         },
       });
-      if(swiper[0]){
-        swiper[0].slideTo(2);
-      }
+      this.swiper.forEach((element,index) => {
+        element.slideTo(this.frontSideCode);
+      });
     },2000)
   }
 
@@ -104,7 +106,19 @@ export class TourCubeComponent implements OnInit,AfterViewInit {
   }
 
   searchCriterionChanged(searchCriterion){
-    this.getTourList(searchCriterion);
+    let frontSide = searchCriterion[1];
+    if(!this.helperService.isEmpty(frontSide)){
+      if(frontSide.includes("difficulty")){
+        this.frontSideCode = 3;
+      }else if(frontSide.includes("price")){
+        this.frontSideCode = 5;
+      }else if(frontSide.includes("rating")){
+        this.frontSideCode = 2;
+      }else{
+        this.frontSideCode = 0;
+      }
+    }
+    this.getTourList(searchCriterion[0]);
   }
 
   showUserNearByTours(locationData){

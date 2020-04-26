@@ -51,7 +51,7 @@ export class SearchHeaderComponent implements OnInit {
     
     clearTimeout(this.searchTimeOut)
     this.searchTimeOut = setTimeout(()=>{
-      this.emitSearchEvent();
+      this.emitSearchEvent(value);
       clearTimeout(this.searchTimeOut)
     },1500)
   }
@@ -59,18 +59,20 @@ export class SearchHeaderComponent implements OnInit {
     this.sortBy = target.getAttribute('data-value');
     this.selectedSortByText = target.getAttribute('data-externalName');
     this.showSortByMenu = false;
-    this.emitSearchEvent();
+    this.emitSearchEvent(this.selectedSortByText.toLowerCase());
   }
 
   onFilterChange(target,filterName){
     this.closeAllFilterMenus();
     let value = target.getAttribute('data-value');
     let splitedVal = value.split("=");
+    let frontSide = ""
     let _value = splitedVal.length > 0 ?  splitedVal[1] : splitedVal[0]
       if(filterName == "rating"){
         this.selectedRatingFilterText = value;
         if(value !== 'Ratings'){
           this.filterObj['rating'] = `rating={"gte":${_value}}`;
+          frontSide = "ratings"
         }else{
           delete this.filterObj['rating']
         }
@@ -79,11 +81,12 @@ export class SearchHeaderComponent implements OnInit {
         this.selectedPriceFilterText = value;
         if(value !== 'Price'){
           this.filterObj['price'] = `price={"lte":${_value}}`;
+          frontSide = "price"
         }else{
           delete this.filterObj['price']
         }
       }
-      this.emitSearchEvent();
+      this.emitSearchEvent(frontSide);
   }
   onClickedOutside(){
     this.showSortByMenu = false;
@@ -111,8 +114,8 @@ export class SearchHeaderComponent implements OnInit {
 
 
   
-  emitSearchEvent(){
-    this.searchCriterionChangedEvent.emit(JSON.stringify({sortVal:this.sortBy,searchVal : this.searchStr,filterVal:this.filterObj}))
+  emitSearchEvent(frontSide){
+    this.searchCriterionChangedEvent.emit([JSON.stringify({sortVal:this.sortBy,searchVal : this.searchStr,filterVal:this.filterObj}),frontSide])
   }
 
 }
