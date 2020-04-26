@@ -55,7 +55,7 @@ export class UserCubeComponent implements OnInit {
   }
 
   searchCriterionChanged(searchCriterion){
-    this.getUserList(searchCriterion)
+    this.getUserList(searchCriterion[0])
   }
 
   onDeleteClick(user){
