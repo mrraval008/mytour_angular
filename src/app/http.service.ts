@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
 export class HttpService {
 
   constructor(public http: HttpClient,public helperService :HelperService,public router: Router) { }
-  public serverUrl ="http://127.0.0.1:3000/api/v1"
+  public serverUrl ="https://tour-node.herokuapp.com/api/v1"
   
 
   public httpOptions = {
