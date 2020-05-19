@@ -1,23 +1,17 @@
-# Create image based on the official Node 10 image from dockerhub
-FROM node:10
-
-# Create a directory where our app will be placed
-RUN mkdir -p /app
-
-# Change directory so that our commands run inside this new directory
+# Stage 0, "build-stage", based on Node.js, to build and compile Angular
+FROM node:11.15.0-alpine as build-stage
 WORKDIR /app
-
-# Copy dependency definitions
-COPY package*.json /app/
-
-# Install dependecies
+COPY package*.json ./
 RUN npm install
+COPY . .
+RUN npm run build -- --output-path=./dist/out 
+# RUN npm run build --prod --output-path=./dist/out 
+#to run in prod mode 
 
-# Get all the code needed to run the app
-COPY . /app/
-
-# Expose the port the app runs in
-EXPOSE 4200
-
-# Serve the app
-CMD ["npm", "start"]
+# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+FROM nginx:1.16.0-alpine as prod-stage
+COPY ./.nginx/nginx.conf /etc/nginx/nginx.conf
+COPY --from=build-stage /app/dist/out /usr/share/nginx/html
+#EXPOSE 8080
+#CMD ["nginx", "-g" , "daemon off;"]
+CMD sed -i -e 's/$PORT/'"$PORT"'/g' /etc/nginx/nginx.conf && nginx -g 'daemon off;'

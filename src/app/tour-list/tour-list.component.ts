@@ -40,7 +40,7 @@ export class TourListComponent implements OnInit {
 
   searchCriterionChanged(searchCriterion) {
     this.showLoader = true;
-    this.getTourList(searchCriterion)
+    this.getTourList(searchCriterion[0])
   }
 
   showUserNearByTours(locationData){
